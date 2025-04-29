@@ -57,7 +57,8 @@ dependencies {
     implementation(libs.androidx.compose.foundation.layout)     // Add this for foundation layout
     implementation(libs.androidx.compose.material.icons.core)   // Useful for icons
     implementation(libs.androidx.compose.material.icons.extended) // Extended icon set
-    implementation(libs.androidx.compose.runtime)               // Core runtime
+    implementation(libs.androidx.compose.runtime)
+    implementation(libs.coil.compose)// Core runtime
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

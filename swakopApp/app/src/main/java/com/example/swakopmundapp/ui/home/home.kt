@@ -1,11 +1,8 @@
 package com.example.swakopmundapp.ui.home
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -14,13 +11,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.material.icons.filled.CurrencyExchange
 import androidx.compose.material.icons.filled.GridView
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationCity
-import androidx.compose.material.icons.filled.LocationOn
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.People
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Support
 import androidx.compose.material.icons.filled.WbSunny
@@ -33,7 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.navigation.Screen
-import com.example.swakopmundapp.ui.shared.BottomNavItem
+import com.example.swakopmundapp.ui.shared.BottomNavBar
 import com.example.swakopmundapp.ui.shared.ImageCarousel
 import com.example.swakopmundapp.ui.shared.MenuGridItem
 
@@ -55,81 +48,51 @@ fun HomeScreen(navController: NavHostController) {
         MenuItem(
             icon = Icons.Filled.Info,
             label = "About",
-            route = "about"
+            route = Screen.About.route
         ),
         MenuItem(
             icon = Icons.Filled.LocationCity,
             label = "Tourism",
-            route = "tourism"
+            route = Screen.Tourism.route
         ),
         MenuItem(
             icon = Icons.Filled.People,
             label = "Community",
-            route = "community"
+            route = Screen.Community.route
         ),
         MenuItem(
             icon = Icons.Filled.Support,
             label = "Support",
-            route = "support"
+            route = Screen.Support.route
         ),
         MenuItem(
             icon = Icons.Filled.CurrencyExchange,
             label = "Currency\nConverter",
-            route = "currency"
+            route = Screen.CurrencyConverter.route
         ),
         MenuItem(
             icon = Icons.Filled.WbSunny,
             label = "Weather",
-            route = "weather"
+            route = Screen.Weather.route
         ),
         MenuItem(
             icon = Icons.Filled.GridView,
             label = "Favourite\nMemories",
-            route = "memories"
+            route = Screen.FavouriteMemories.route
         ),
         MenuItem(
             icon = Icons.Filled.Place,
             label = "Where To\nStay",
-            route = "stay"
+            route = Screen.WhereToStay.route
         )
     )
 
     Scaffold(
         bottomBar = {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(4.dp),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                BottomNavItem(
-                    icon = Icons.Filled.Home,
-                    label = "Home",
-                    isSelected = true,
-                    onClick = { }
-                )
-
-                BottomNavItem(
-                    icon = Icons.Filled.LocationOn,
-                    label = "Explore",
-                    isSelected = false,
-                    onClick = { }
-                )
-
-                BottomNavItem(
-                    icon = Icons.Filled.Notifications,
-                    label = "Notifications",
-                    isSelected = false,
-                    onClick = { }
-                )
-
-                BottomNavItem(
-                    icon = Icons.Filled.Person,
-                    label = "Profile",
-                    isSelected = false,
-                    onClick = { }
-                )
-            }
+            BottomNavBar(
+                currentRoute = Screen.Home.route,
+                navController = navController
+            )
         }
     ) { paddingValues ->
         Column(

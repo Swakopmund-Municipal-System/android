@@ -12,5 +12,6 @@ sealed class Screen(val route: String) {
     object Weather : Screen("weather")
     object FavouriteMemories : Screen("memories")
     object WhereToStay : Screen("stay")
+    object Map : Screen("map")
     // Add others as needed
 }

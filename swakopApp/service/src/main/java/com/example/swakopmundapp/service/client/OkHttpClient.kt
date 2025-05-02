@@ -1,6 +1,5 @@
 package com.example.swakopmundapp.service.client
 
-import na.com.green.passcard_attendance_hr.service.client.UnsafeOkHttpClient
 import java.util.concurrent.TimeUnit
 
 internal class OkHttpClient(

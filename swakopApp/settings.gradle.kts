@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "SwakopmundApp"
 include(":app")
- 
+include(":service")

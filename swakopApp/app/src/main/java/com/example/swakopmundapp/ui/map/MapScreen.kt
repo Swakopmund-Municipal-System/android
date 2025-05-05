@@ -43,6 +43,7 @@ import coil.request.ImageRequest
 import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.navigation.Screen
 import com.example.swakopmundapp.ui.shared.BottomNavBar
+import com.example.swakopmundapp.ui.shared.TopBlueBar
 
 @Composable
 fun MapScreen(navController: NavHostController) {
@@ -50,6 +51,7 @@ fun MapScreen(navController: NavHostController) {
     var selectedType by remember { mutableStateOf("Foodie") }
 
     Scaffold(
+        topBar = { TopBlueBar(title = "Map") },
         bottomBar = {
             BottomNavBar(
                 currentRoute = Screen.Map.route,

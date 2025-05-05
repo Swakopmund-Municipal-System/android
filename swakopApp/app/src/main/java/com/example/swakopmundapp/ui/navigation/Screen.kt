@@ -13,5 +13,11 @@ sealed class Screen(val route: String) {
     object FavouriteMemories : Screen("memories")
     object WhereToStay : Screen("stay")
     object Map : Screen("map")
+    object Notifications : Screen("notifications")
+    object Profile : Screen("profile")
+    object EditProfile : Screen("edit_profile")
+    object ForgotPassword : Screen("forgot_password")
+    object Login : Screen("login")
+
     // Add others as needed
 }

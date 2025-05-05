@@ -29,6 +29,7 @@ import com.example.swakopmundapp.ui.navigation.Screen
 import com.example.swakopmundapp.ui.shared.BottomNavBar
 import com.example.swakopmundapp.ui.shared.ImageCarousel
 import com.example.swakopmundapp.ui.shared.MenuGridItem
+import com.example.swakopmundapp.ui.shared.TopBlueBar
 
 data class MenuItem(
     val icon: ImageVector,
@@ -88,6 +89,7 @@ fun HomeScreen(navController: NavHostController) {
     )
 
     Scaffold(
+        topBar = { TopBlueBar(title = "Home") },
         bottomBar = {
             BottomNavBar(
                 currentRoute = Screen.Home.route,

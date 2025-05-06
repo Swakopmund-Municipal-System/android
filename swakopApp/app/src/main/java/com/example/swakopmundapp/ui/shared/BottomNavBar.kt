@@ -66,10 +66,10 @@ fun BottomNavBar(
         BottomNavItem(
             icon = Icons.Filled.Notifications,
             label = "Notifications",
-            isSelected = currentRoute == Screen.Map.route,
+            isSelected = currentRoute == Screen.Notifications.route,
             onClick = {
-                if (currentRoute != Screen.Map.route) {
-                    navController.navigate(Screen.Map.route) {
+                if (currentRoute != Screen.Notifications.route) {
+                    navController.navigate(Screen.Notifications.route) {
                         popUpTo(navController.graph.startDestinationId) {
                             saveState = true
                         }
@@ -83,10 +83,10 @@ fun BottomNavBar(
         BottomNavItem(
             icon = Icons.Filled.Person,
             label = "Profile",
-            isSelected = currentRoute == Screen.Map.route,
+            isSelected = currentRoute == Screen.Profile.route,
             onClick = {
-                if (currentRoute != Screen.Map.route) {
-                    navController.navigate(Screen.Map.route) {
+                if (currentRoute != Screen.Profile.route) {
+                    navController.navigate(Screen.Profile.route) {
                         popUpTo(navController.graph.startDestinationId) {
                             saveState = true
                         }

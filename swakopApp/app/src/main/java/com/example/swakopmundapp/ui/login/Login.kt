@@ -15,7 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+
 import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
+
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -34,12 +36,14 @@ import com.example.swakopmundapp.ui.components.NormalTextComponent
 import com.example.swakopmundapp.ui.components.PasswordTextFieldComponent
 import com.example.swakopmundapp.ui.components.WhiteSheet
 import com.example.swakopmundapp.ui.navigation.Screen
+
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 
 @Composable
 fun LoginScreen(navController: NavHostController) {
     Box(modifier = Modifier.fillMaxSize()) {
+
         // Background Image
         Image(
             painter = painterResource(id = R.drawable.swakop_sc_bg),
@@ -48,10 +52,20 @@ fun LoginScreen(navController: NavHostController) {
             contentScale = ContentScale.Crop
         )
 
+
         ConstraintLayout(modifier = Modifier.fillMaxSize()) {
             val (logo, sheet) = createRefs()
 
             // Logo/Image near the top
+
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(130.dp))
+
+            // Logo
+
             Image(
                 painter = painterResource(id = R.drawable.swakop_logo),
                 contentDescription = stringResource(R.string.logo),
@@ -64,7 +78,14 @@ fun LoginScreen(navController: NavHostController) {
                     .padding(16.dp)
             )
 
+
             // WhiteSheet anchored to bottom
+
+
+            Spacer(modifier = Modifier.height(240.dp))
+
+            // White Bottom Sheet
+
             WhiteSheet(
                 modifier = Modifier
                     .constrainAs(sheet) {
@@ -84,6 +105,9 @@ fun LoginScreen(navController: NavHostController) {
 
                 Spacer(modifier = Modifier.height(10.dp))
 
+
+                // Log In Button
+
                 Button(
                     onClick = {
                         navController.navigate(Screen.Home.route) {
@@ -99,6 +123,9 @@ fun LoginScreen(navController: NavHostController) {
 
                 Spacer(modifier = Modifier.height(10.dp))
 
+
+                // Sign Up Text
+
                 AnnotatedClickableText(
                     parts = listOf(
                         ClickablePart("Don't have an account? "),
@@ -113,5 +140,13 @@ fun LoginScreen(navController: NavHostController) {
             }
         }
     }
+}
+
+
+// ✅ Preview Function (no navigation)
+@Preview
+@Composable
+fun LoginScreenPreview() {
+    LoginScreen(navController = rememberNavController())
 }
 

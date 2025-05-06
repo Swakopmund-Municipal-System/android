@@ -58,7 +58,8 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.core)   // Useful for icons
     implementation(libs.androidx.compose.material.icons.extended) // Extended icon set
     implementation(libs.androidx.compose.runtime)
-    implementation(libs.coil.compose)// Core runtime
+    implementation(libs.coil.compose)
+    implementation(libs.androidx.constraintlayout.compose.android)// Core runtime
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

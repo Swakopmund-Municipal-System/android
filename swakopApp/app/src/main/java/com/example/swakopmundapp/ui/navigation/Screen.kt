@@ -18,6 +18,7 @@ sealed class Screen(val route: String) {
     object EditProfile : Screen("edit_profile")
     object ForgotPassword : Screen("forgot_password")
     object Login : Screen("login")
-
+    object ExchangeChart : Screen("exchange_chart")
+    object Start : Screen("start")
     // Add others as needed
 }

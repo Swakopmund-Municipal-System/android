@@ -18,12 +18,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.components.ButtonComponent
+import com.example.swakopmundapp.ui.navigation.Screen
 
 
 @Composable
-fun StartScreen() {
+fun StartScreen(navController: NavHostController) {
     Box(modifier = Modifier.fillMaxSize()) {
 
         Image(
@@ -49,16 +51,9 @@ fun StartScreen() {
             ButtonComponent(
                 value = stringResource(R.string.get_started),
                 onClick = {
-                    //Here navigation to next screen.
+                    navController.navigate(Screen.Login.route)
                 }
             )
         }
     }
-}
-
-
-@Preview
-@Composable
-fun StartScreenPreview() {
-    StartScreen()
 }

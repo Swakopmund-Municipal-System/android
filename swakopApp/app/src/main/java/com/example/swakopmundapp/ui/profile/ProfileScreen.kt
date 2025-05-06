@@ -13,8 +13,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ExitToApp
 import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
@@ -85,7 +85,7 @@ fun ProfileScreen(navController: NavHostController) {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            ProfileItem("Logout", Icons.Default.ExitToApp, Color.Red) {
+            ProfileItem("Logout", Icons.AutoMirrored.Filled.ExitToApp, Color.Red) {
                 // handle logout
             }
         }

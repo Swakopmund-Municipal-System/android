@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,7 +25,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.components.AnnotatedClickableText
-import com.example.swakopmundapp.ui.components.ButtonComponent
 import com.example.swakopmundapp.ui.components.ClickablePart
 import com.example.swakopmundapp.ui.components.HeadingTextComponent
 import com.example.swakopmundapp.ui.components.MyTextFieldComponent
@@ -78,14 +79,18 @@ fun LoginScreen(navController: NavHostController) {
                 Spacer(modifier = Modifier.height(10.dp))
 
                 // Log In Button
-                ButtonComponent(
-                    value = stringResource(id = R.string.log_in),
+                Button(
                     onClick = {
                         navController.navigate(Screen.Home.route) {
                             popUpTo(Screen.Login.route) { inclusive = true }
                         }
-                    }
-                )
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp, vertical = 12.dp)
+                ) {
+                    Text(text = stringResource(id = R.string.log_in))
+                }
 
                 Spacer(modifier = Modifier.height(10.dp))
 

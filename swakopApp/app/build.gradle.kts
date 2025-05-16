@@ -40,10 +40,24 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core"))
+    implementation(project(":service"))
     implementation(libs.androidx.core.ktx)
-
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.gson)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.retrofit2.kotlin.coroutines.adapter)
+    implementation(libs.koin.android.compat)
+    implementation(libs.koin.android)
+    implementation(libs.logging.interceptor)
+    implementation(libs.okhttp)
+    implementation(libs.converter.gson)
+    implementation(libs.retrofit)
+    implementation(libs.adapter.rxjava2)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.runtime.ktx)
+    implementation(libs.lifecycle.livedata.ktx)
+    implementation(libs.lifecycle.extensions)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
@@ -52,15 +66,13 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.androidx.navigation.compose)
-    // Add these dependencies for foundation and other core Compose elements
-    implementation(libs.androidx.compose.foundation)            // Add this for foundation
-    implementation(libs.androidx.compose.foundation.layout)     // Add this for foundation layout
-    implementation(libs.androidx.compose.material.icons.core)   // Useful for icons
-    implementation(libs.androidx.compose.material.icons.extended) // Extended icon set
+    implementation(libs.androidx.compose.foundation)
+    implementation(libs.androidx.compose.foundation.layout)
+    implementation(libs.androidx.compose.material.icons.core)
+    implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.compose.runtime)
     implementation(libs.coil.compose)
-    implementation(libs.androidx.constraintlayout.compose.android)// Core runtime
-
+    implementation(libs.androidx.constraintlayout.compose.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -5,7 +5,11 @@ sealed class Screen(val route: String) {
     object Municipal : Screen("municipal")
     object Auth : Screen("auth")
     object About : Screen("about")
-    object Tourism : Screen("tourism")
+    object TourismGrid : Screen("tourism_grid")
+    object TourismDetail : Screen("tourism_detail/{activityName}") {
+        fun createRoute(activityName: String) = "tourism_detail/$activityName"
+    }
+
     object Community : Screen("community")
     object Support : Screen("support")
     object CurrencyConverter : Screen("currency")

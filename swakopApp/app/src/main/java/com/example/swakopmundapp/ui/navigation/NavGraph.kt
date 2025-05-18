@@ -1,6 +1,8 @@
 package com.example.swakopmundapp.ui.navigation
 
+
 import FavouriteMemoriesScreen
+
 import TourismGridScreen
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
@@ -10,7 +12,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+
 import com.example.swakopmundapp.data.model.FavouriteMemories.FavouriteMemoriesViewModel
+
 import com.example.swakopmundapp.data.model.tourism.TourismViewModel
 import com.example.swakopmundapp.ui.about.AboutScreen
 import com.example.swakopmundapp.ui.community.CommunityScreen

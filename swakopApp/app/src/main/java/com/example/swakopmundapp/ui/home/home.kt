@@ -54,7 +54,8 @@ fun HomeScreen(navController: NavHostController) {
         MenuItem(
             icon = Icons.Filled.LocationCity,
             label = "Tourism",
-            route = Screen.Tourism.route
+            route = Screen.TourismGrid.route
+
         ),
         MenuItem(
             icon = Icons.Filled.People,

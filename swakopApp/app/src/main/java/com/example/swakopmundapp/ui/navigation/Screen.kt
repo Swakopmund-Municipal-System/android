@@ -15,7 +15,7 @@ sealed class Screen(val route: String) {
     object CurrencyConverter : Screen("currency")
     object Weather : Screen("weather")
     object FavouriteMemories : Screen("memories")
-    object WhereToStay : Screen("stay")
+    object WhereToStay : Screen("where_to_stay")
     object Map : Screen("map")
     object Notifications : Screen("notifications")
     object Profile : Screen("profile")
@@ -24,5 +24,9 @@ sealed class Screen(val route: String) {
     object Login : Screen("login")
     object ExchangeChart : Screen("exchange_chart")
     object Start : Screen("start")
+    object HotelDetails : Screen("hotel_details/{hotelName}") {
+        fun withArgs(name: String) = "hotel_details/$name"
+    }
+
     // Add others as needed
 }

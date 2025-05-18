@@ -1,19 +1,25 @@
 package com.example.swakopmundapp.ui.navigation
 
+
+import FavouriteMemoriesScreen
+
 import TourismGridScreen
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+
+import com.example.swakopmundapp.data.model.FavouriteMemories.FavouriteMemoriesViewModel
+
 import com.example.swakopmundapp.data.model.tourism.TourismViewModel
 import com.example.swakopmundapp.ui.about.AboutScreen
 import com.example.swakopmundapp.ui.community.CommunityScreen
 import com.example.swakopmundapp.ui.currency.CurrencyConverterScreen
 import com.example.swakopmundapp.ui.currency.ExchangeChartScreen
-import com.example.swakopmundapp.ui.favorites.FavouriteMemoriesScreen
 import com.example.swakopmundapp.ui.home.HomeScreen
 import com.example.swakopmundapp.ui.login.LoginScreen
 import com.example.swakopmundapp.ui.map.MapScreen
@@ -55,7 +61,11 @@ fun AppNavGraph(navController: NavHostController) { NavHost(navController = navC
         composable(Screen.Support.route) { SupportScreen() }
         composable(Screen.CurrencyConverter.route) { CurrencyConverterScreen(navController) }
         composable(Screen.Weather.route) { WeatherScreen() }
-        composable(Screen.FavouriteMemories.route) { FavouriteMemoriesScreen() }
+        composable(Screen.FavouriteMemories.route) {
+            val viewModel = remember { FavouriteMemoriesViewModel() }
+            FavouriteMemoriesScreen(viewModel)
+        }
+
         composable(Screen.WhereToStay.route) { WhereToStayScreen() }
         composable(Screen.Map.route) { MapScreen(navController) }
         composable(Screen.Notifications.route) { NotificationScreen(navController) }

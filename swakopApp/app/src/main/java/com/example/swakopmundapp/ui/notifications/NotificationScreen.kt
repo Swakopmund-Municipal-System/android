@@ -61,7 +61,12 @@ fun NotificationScreen(navController: NavHostController) {
     )
 
     Scaffold(
-        topBar = { TopBlueBar(title = "Notifications") },
+        topBar = {
+            TopBlueBar(
+                title = "Notifications",
+                navController = navController
+            )
+        },
         bottomBar = {
             BottomNavBar(
                 currentRoute = Screen.Notifications.route,

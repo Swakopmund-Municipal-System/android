@@ -47,7 +47,7 @@ fun AppNavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = Screen.Start.route) {
         composable(Screen.Home.route) { HomeScreen(navController) }
         composable(Screen.Municipal.route) { MunicipalScreen() }
-        composable(Screen.About.route) { AboutScreen() }
+        composable(Screen.About.route) { AboutScreen(navController) }
 
         composable(Screen.TourismGrid.route) {
             val viewModel = TourismViewModel()
@@ -63,14 +63,14 @@ fun AppNavGraph(navController: NavHostController) {
             TourismDetailScreen(navController, activityName, viewModel)
         }
 
-        composable(Screen.Community.route) { CommunityScreen() }
+        composable(Screen.Community.route) { CommunityScreen(navController) }
         composable(Screen.Support.route) { SupportScreen() }
         composable(Screen.CurrencyConverter.route) { CurrencyConverterScreen(navController) }
-        composable(Screen.Weather.route) { WeatherScreen() }
+        composable(Screen.Weather.route) { WeatherScreen(navController) }
 
         composable(Screen.FavouriteMemories.route) {
             val viewModel = remember { FavouriteMemoriesViewModel() }
-            FavouriteMemoriesScreen(viewModel)
+            FavouriteMemoriesScreen(navController, viewModel)
         }
 
         composable(Screen.WhereToStay.route) {
@@ -90,7 +90,7 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         composable(Screen.ExchangeChart.route) {
-            ExchangeChartScreen()
+            ExchangeChartScreen(navController)
         }
 
         composable(Screen.Start.route) {

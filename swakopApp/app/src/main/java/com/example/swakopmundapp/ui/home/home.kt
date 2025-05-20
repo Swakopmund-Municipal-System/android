@@ -90,7 +90,13 @@ fun HomeScreen(navController: NavHostController) {
     )
 
     Scaffold(
-        topBar = { TopBlueBar(title = "Home") },
+        topBar = {
+            TopBlueBar(
+                title = "Home",
+                navController = navController,
+                showBack = false
+            )
+        },
         bottomBar = {
             BottomNavBar(
                 currentRoute = Screen.Home.route,

@@ -42,12 +42,7 @@ fun ProfileScreen(navController: NavHostController) {
     val profileImage = "https://i.pinimg.com/736x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg" // Placeholder image
 
     Scaffold(
-        topBar = {
-            TopBlueBar(
-                title = "Profile Screen",
-                navController = navController
-            )
-        },
+        topBar = { TopBlueBar(title = "User Profile") },
         bottomBar = {
             BottomNavBar(currentRoute = Screen.Profile.route, navController = navController)
         }

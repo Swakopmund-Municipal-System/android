@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.swakopmundapp.ui.shared.TopBlueBar
 import com.example.swakopmundapp.ui.wheretostay.components.CalendarPicker
 import java.time.LocalDate
 
@@ -29,22 +27,14 @@ fun HotelDetailsScreen(hotel: Hotel,  navController: NavHostController) {
     var checkIn by remember { mutableStateOf<LocalDate?>(null) }
     var checkOut by remember { mutableStateOf<LocalDate?>(null) }
 
-    Scaffold(
-        topBar = {
-            TopBlueBar(
-                title = hotel.name,
-                navController = navController
-            )
-        }
-    ) { padding ->
-        Column(Modifier.fillMaxSize().padding(padding)) {
-            Image(
-                painter = painterResource(id = hotel.imageRes),
-                contentDescription = hotel.name,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp)
-            )
+    Column(Modifier.fillMaxSize()) {
+        Image(
+            painter = painterResource(id = hotel.imageRes),
+            contentDescription = hotel.name,
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(220.dp)
+        )
 
         Column(Modifier.padding(16.dp)) {
             Text(hotel.name, style = MaterialTheme.typography.titleLarge)
@@ -80,5 +70,4 @@ fun HotelDetailsScreen(hotel: Hotel,  navController: NavHostController) {
             }
         }
     }
-}
 }

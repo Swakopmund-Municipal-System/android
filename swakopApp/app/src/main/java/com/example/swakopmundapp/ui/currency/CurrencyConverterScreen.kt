@@ -67,13 +67,7 @@ fun CurrencyConverterScreen(navController: NavHostController) {
     }
 
     Scaffold(
-
-        topBar = {
-            TopBlueBar(
-                title = "Currency Converter",
-                navController = navController
-            )
-        }
+        topBar = { TopBlueBar(title = "Currency Converter") }
     ) { padding ->
         Column(
             modifier = Modifier

@@ -1,5 +1,6 @@
 package com.example.swakopmundapp.ui.wheretostay
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -28,7 +29,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -48,7 +48,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.swakopmundapp.ui.navigation.Screen
-import com.example.swakopmundapp.ui.shared.TopBlueBar
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
@@ -88,53 +87,48 @@ fun WhereToStayScreen(navController: NavHostController, hotels: List<Hotel>) {
             onConfirm = { checkIn, checkOut ->
                 checkInDate = checkIn
                 checkOutDate = checkOut
+                Log.d("Booking", "Check-in: $checkInDate, Check-out: $checkOutDate")
                 val nights = calculateNights(checkIn, checkOut)
+                Log.d("Booking", "Nights: $nights")
                 showCalendar = false
             }
         )
     }
 
-    Scaffold(
-        topBar = {
-            TopBlueBar(
-                title = "Where To Stay",
-                navController = navController
+    Column(Modifier.padding(16.dp)) {
+        OutlinedTextField(
+            value = searchQuery,
+            onValueChange = { searchQuery = it },
+            label = { Text("Search...") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Row(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text("Amenities ▼") // Placeholder for future functionality
+
+            SortDropdown(
+                selected = selectedSort,
+                options = sortOptions,
+                onOptionSelected = { selectedSort = it }
             )
         }
-    ) { padding ->
-        Column(Modifier.padding(padding).padding(16.dp)) {
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { searchQuery = it },
-                label = { Text("Search...") },
-                modifier = Modifier.fillMaxWidth()
-            )
 
-            Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text("Amenities ▼") // Placeholder for future functionality
+        Text("Currently Trending", style = MaterialTheme.typography.titleLarge)
 
-                SortDropdown(
-                    selected = selectedSort,
-                    options = sortOptions,
-                    onOptionSelected = { selectedSort = it }
-                )
-            }
+        Spacer(modifier = Modifier.height(12.dp))
 
-            Spacer(modifier = Modifier.height(12.dp))
-            Text("Currently Trending", style = MaterialTheme.typography.titleLarge)
-            Spacer(modifier = Modifier.height(12.dp))
-
-            LazyColumn {
-                items(filteredHotels) { hotel ->
-                    HotelCard(hotel = hotel, navController = navController)
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
+        LazyColumn {
+            items(filteredHotels) { hotel ->
+                HotelCard(hotel = hotel, navController = navController)
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }

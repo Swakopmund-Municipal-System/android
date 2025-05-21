@@ -21,14 +21,9 @@ import androidx.compose.ui.unit.dp
 import com.example.swakopmundapp.ui.shared.TopBlueBar
 
 @Composable
-fun ExchangeChartScreen(navController: androidx.navigation.NavController) {
+fun ExchangeChartScreen() {
     Scaffold(
-        topBar = {
-            TopBlueBar(
-                title = "Community",
-                navController = navController
-            )
-        }
+        topBar = { TopBlueBar(title = "Exchange Rate Chart") }
     ) { padding ->
         Column(
             modifier = Modifier

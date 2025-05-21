@@ -30,12 +30,7 @@ fun ForgotPasswordScreen(navController: NavHostController) {
     var email by remember { mutableStateOf("") }
 
     Scaffold(
-        topBar = {
-            TopBlueBar(
-                title = "Forgot Password",
-                navController = navController
-            )
-        },
+        topBar = { TopBlueBar(title = "Forgot Password") },
 
         bottomBar = {
             BottomNavBar(currentRoute = Screen.Profile.route, navController = navController)

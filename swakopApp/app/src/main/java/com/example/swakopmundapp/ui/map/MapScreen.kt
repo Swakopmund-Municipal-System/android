@@ -51,12 +51,7 @@ fun MapScreen(navController: NavHostController) {
     var selectedType by remember { mutableStateOf("Foodie") }
 
     Scaffold(
-        topBar = {
-            TopBlueBar(
-                title = "Map",
-                navController = navController
-            )
-        },
+        topBar = { TopBlueBar(title = "Map") },
         bottomBar = {
             BottomNavBar(
                 currentRoute = Screen.Map.route,

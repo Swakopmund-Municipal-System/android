@@ -33,12 +33,7 @@ fun EditProfileScreen(navController: NavHostController) {
     var email by remember { mutableStateOf("") }
 
     Scaffold(
-        topBar = {
-            TopBlueBar(
-                title = "Edit Profile",
-                navController = navController
-            )
-        },
+        topBar = { TopBlueBar(title = "Edit Profile") },
         bottomBar = {
             BottomNavBar(currentRoute = Screen.Profile.route, navController = navController)
         }

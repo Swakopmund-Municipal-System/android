@@ -20,7 +20,7 @@ fun SupportScreen(onBack: () -> Unit = {}) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp)
+                .height(56.dp) // Standard app bar height
                 .background(color = colorResource(id = R.color.bluebar))
         ) {
             IconButton(
@@ -46,13 +46,34 @@ fun SupportScreen(onBack: () -> Unit = {}) {
         }
 
         // Placeholder for the rest of the screen
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(16.dp)
                 .background(Color.White),
-            contentAlignment = Alignment.Center
         ) {
-            Text("Support Content Goes Here")
+            Text("Contact Us", style = MaterialTheme.typography.titleLarge)
+
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text("Phone: +264 61 123 4567")
+            Text("Email: support@swakopmund.tourism.na")
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text("Frequently Asked Questions", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text("Are guided tours available?\n Yes, book in advance via the app.")
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text("Tips for Visitors", style = MaterialTheme.typography.titleMedium)
+            Spacer(modifier = Modifier.height(4.dp))
+
+            Text("• Bring sunscreen and water.")
+            Text("• Wear comfortable walking shoes.")
+            Text("• Check the weather before visiting.")
         }
     }
 }

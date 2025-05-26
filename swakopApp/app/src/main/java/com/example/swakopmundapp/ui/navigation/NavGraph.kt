@@ -12,6 +12,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.swakopmundapp.R
 import com.example.swakopmundapp.data.model.FavouriteMemories.FavouriteMemoriesViewModel
+import com.example.swakopmundapp.data.model.municipal.BankDetailsViewModel
 import com.example.swakopmundapp.data.model.tourism.TourismViewModel
 import com.example.swakopmundapp.ui.about.AboutScreen
 import com.example.swakopmundapp.ui.community.CommunityScreen
@@ -20,11 +21,13 @@ import com.example.swakopmundapp.ui.currency.ExchangeChartScreen
 import com.example.swakopmundapp.ui.home.HomeScreen
 import com.example.swakopmundapp.ui.login.LoginScreen
 import com.example.swakopmundapp.ui.map.MapScreen
+import com.example.swakopmundapp.ui.municipal.BankDetailsScreen
+import com.example.swakopmundapp.ui.municipal.MunicipalOption
 import com.example.swakopmundapp.ui.notifications.NotificationScreen
 import com.example.swakopmundapp.ui.profile.EditProfileScreen
 import com.example.swakopmundapp.ui.profile.ForgotPasswordScreen
 import com.example.swakopmundapp.ui.profile.ProfileScreen
-import com.example.swakopmundapp.ui.resident.MunicipalScreen
+import com.example.swakopmundapp.ui.municipal.MunicipalScreen
 import com.example.swakopmundapp.ui.startscreen.StartScreen
 import com.example.swakopmundapp.ui.support.SupportScreen
 import com.example.swakopmundapp.ui.tourism.TourismDetailScreen
@@ -46,12 +49,33 @@ fun AppNavGraph(navController: NavHostController) {
 
     NavHost(navController = navController, startDestination = Screen.Start.route) {
         composable(Screen.Home.route) { HomeScreen(navController) }
-        composable(Screen.Municipal.route) { MunicipalScreen() }
+        composable(Screen.Municipal.route) {
+            MunicipalScreen(
+                onBack = { navController.popBackStack() },
+                onOptionSelected = { option: MunicipalOption ->
+                    when (option) {
+                        is MunicipalOption.BankDetails -> {
+                            navController.navigate(Screen.BankDetails.route)
+                        }
+                        // Add more when ready
+                        else -> {}
+                    }
+                }
+            )
+        }
+
         composable(Screen.About.route) { AboutScreen() }
 
         composable(Screen.TourismGrid.route) {
             val viewModel = TourismViewModel()
             TourismGridScreen(navController, viewModel)
+        }
+
+
+
+        composable(Screen.BankDetails.route) {
+            val viewModel = remember { BankDetailsViewModel() }
+            BankDetailsScreen(viewModel)
         }
 
         composable(

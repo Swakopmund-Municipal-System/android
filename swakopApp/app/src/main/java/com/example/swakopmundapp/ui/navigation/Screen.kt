@@ -24,6 +24,7 @@ sealed class Screen(val route: String) {
     object Login : Screen("login")
     object ExchangeChart : Screen("exchange_chart")
     object Start : Screen("start")
+    object BankDetails : Screen("bank_details")
     object HotelDetails : Screen("hotel_details/{hotelName}") {
         fun withArgs(name: String) = "hotel_details/$name"
     }

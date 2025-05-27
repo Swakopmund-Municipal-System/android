@@ -60,7 +60,11 @@ import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 @Composable
-fun WhereToStayScreen(navController: NavHostController, hotels: List<Hotel>, onBack: () -> Unit = {}) {
+fun WhereToStayScreen(
+    navController: NavHostController,
+    hotels: List<Hotel>,
+    onBack: () -> Unit = {}
+) {
     var showCalendar by remember { mutableStateOf(false) }
     var checkInDate by remember { mutableStateOf<LocalDate?>(null) }
     var checkOutDate by remember { mutableStateOf<LocalDate?>(null) }
@@ -107,9 +111,8 @@ fun WhereToStayScreen(navController: NavHostController, hotels: List<Hotel>, onB
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(65.dp)
-                    .background(colorResource(id = R.color.bluebar)),
-                contentAlignment = Alignment.Center
+                    .height(100.dp)
+                    .background(colorResource(id = R.color.bluebar))
             ) {
                 IconButton(
                     onClick = onBack,
@@ -118,7 +121,7 @@ fun WhereToStayScreen(navController: NavHostController, hotels: List<Hotel>, onB
                         .padding(start = 16.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        imageVector = Icons.Filled.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.White
                     )
@@ -126,14 +129,18 @@ fun WhereToStayScreen(navController: NavHostController, hotels: List<Hotel>, onB
                 Text(
                     text = "Where to Stay",
                     color = Color.White,
-                    fontSize = 20.sp,
+                    fontSize = 30.sp,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
         }
     ) { paddingValues ->
-        Column(Modifier.padding(paddingValues).padding(16.dp)) {
+        Column(
+            Modifier
+                .padding(paddingValues)
+                .padding(16.dp)
+        ) {
             OutlinedTextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
@@ -148,8 +155,7 @@ fun WhereToStayScreen(navController: NavHostController, hotels: List<Hotel>, onB
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("Amenities ▼") // Placeholder for future functionality
-
+                Text("Amenities ▼")
                 SortDropdown(
                     selected = selectedSort,
                     options = sortOptions,

@@ -18,11 +18,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,21 +42,12 @@ import com.example.swakopmundapp.R
 
 @Composable
 fun AboutScreen(onBack: () -> Unit = {}) {
-    Box(modifier = Modifier.fillMaxSize()) {
-        Image(
-            painter = painterResource(id = R.drawable.about_background),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-
-        Column(modifier = Modifier.fillMaxSize()) {
-
-            // Top blue bar
+    Scaffold(
+        topBar = {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(65.dp)
+                    .height(100.dp)
                     .background(colorResource(id = R.color.bluebar)),
                 contentAlignment = Alignment.Center
             ) {
@@ -65,7 +58,7 @@ fun AboutScreen(onBack: () -> Unit = {}) {
                         .padding(start = 16.dp)
                 ) {
                     Icon(
-                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        imageVector = Icons.Default.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.White
                     )
@@ -73,27 +66,36 @@ fun AboutScreen(onBack: () -> Unit = {}) {
                 Text(
                     text = "About",
                     color = Color.White,
-                    fontSize = 20.sp,
-                    style = MaterialTheme.typography.titleLarge,
-                    modifier = Modifier.align(Alignment.Center)
+                    fontSize = 30.sp,
+                    style = MaterialTheme.typography.titleLarge
                 )
             }
+        }
+    ) { padding ->
+        Box(modifier = Modifier
+            .fillMaxSize()
+            .padding(padding)
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.about_background),
+                contentDescription = null,
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.Crop
+            )
 
-            // Scrollable content
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())
+                    .padding(horizontal = 16.dp)
             ) {
                 Spacer(modifier = Modifier.height(20.dp))
 
-                // Intro Text Box
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(horizontal = 16.dp)
                         .background(
-                            color = Color.White.copy(alpha = 1.0f),
+                            color = Color.White,
                             shape = RoundedCornerShape(8.dp)
                         )
                         .padding(16.dp)

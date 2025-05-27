@@ -84,7 +84,7 @@ fun TourismGridScreen(
                         contentScale = ContentScale.Crop,
                         modifier = Modifier
                             .size(150.dp)
-                            .clip(RoundedCornerShape(12.dp))
+                            .clip(RoundedCornerShape(20.dp))
                     )
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(text = activity.name)

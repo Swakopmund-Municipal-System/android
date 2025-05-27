@@ -138,7 +138,11 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         composable(Screen.WhereToStay.route) {
-            WhereToStayScreen(navController, hotels)
+            WhereToStayScreen(
+                navController = navController,
+                hotels = hotels,
+                onBack = { navController.popBackStack() }
+            )
         }
 
         composable(Screen.Map.route) { MapScreen(navController) }

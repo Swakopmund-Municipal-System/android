@@ -145,7 +145,21 @@ fun AppNavGraph(navController: NavHostController) {
         }
         composable(Screen.EventDetail.route) {
             EventDetailScreen(navController) }
-    
+
+     composable(
+                route = Screen.EventDetail.route,
+                arguments = listOf(
+                    navArgument("eventId") {
+                        type = NavType.StringType
+                        nullable = true
+                    }
+                )
+            ) { backStackEntry ->
+                EventDetailScreen(
+                    navController = navController,
+                    eventId = backStackEntry.arguments?.getString("eventId")
+                )
+            }
         
 
         // Profile navigations --------------------------------------

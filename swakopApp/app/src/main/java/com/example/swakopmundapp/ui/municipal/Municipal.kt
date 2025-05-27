@@ -17,9 +17,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.Divider
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -43,50 +45,53 @@ fun MunicipalScreen(
     onBack: () -> Unit,
     onOptionSelected: (MunicipalOption) -> Unit
 ) {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize()){
+        Column(modifier = Modifier.fillMaxSize()) {
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(100.dp)
-                .background(colorResource(id = R.color.bluebar))
-        ) {
-            IconButton(
-                onClick = onBack,
+            Box(
                 modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .padding(start = 16.dp)
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(colorResource(id = R.color.bluebar)),
+                contentAlignment = Alignment.Center
             ) {
-                Icon(
-                    imageVector = Icons.Default.ArrowBack,
-                    contentDescription = "Back",
-                    tint = Color.White
+                IconButton(
+                    onClick = onBack,
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = 16.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.White
+                    )
+                }
+                Text(
+                    text = "Municipal",
+                    color = Color.White,
+                    fontSize = 30.sp,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.align(Alignment.Center)
                 )
             }
-            Text(
-                text = "Municipal",
-                color = Color.White,
-                fontSize = 30.sp,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
 
 
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(listOf(
-                MunicipalOption.BankDetails,
-                MunicipalOption.Departments,
-                MunicipalOption.Procurement,
-                MunicipalOption.Downloads,
-                MunicipalOption.ReportAnIssue
-            )) { option ->
-                MunicipalRowItem(option, onOptionSelected)
-                Divider(
-                    color = Color.LightGray.copy(alpha = 0.5f),
-                    thickness = 1.dp,
-                    modifier = Modifier.padding(start = 72.dp, end = 16.dp)
-                )
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(listOf(
+                    MunicipalOption.BankDetails,
+                    MunicipalOption.Departments,
+                    MunicipalOption.Procurement,
+                    MunicipalOption.Downloads,
+                    MunicipalOption.ReportAnIssue
+                )) { option ->
+                    MunicipalRowItem(option, onOptionSelected)
+                    HorizontalDivider(
+                        modifier = Modifier.padding(start = 72.dp, end = 16.dp),
+                        thickness = 1.dp,
+                        color = Color.LightGray.copy(alpha = 0.5f)
+                    )
+                }
             }
         }
     }

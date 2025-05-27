@@ -67,11 +67,18 @@ fun AppNavGraph(navController: NavHostController) {
             )
         }
 
-        composable(Screen.About.route) { AboutScreen() }
+        composable(Screen.About.route) {
+            AboutScreen(
+                onBack = {navController.popBackStack()}
+            )
+        }
 
         composable(Screen.TourismGrid.route) {
             val viewModel = TourismViewModel()
-            TourismGridScreen(navController, viewModel)
+            TourismGridScreen(
+                navController,
+                viewModel,
+                onBack = {navController.popBackStack()})
         }
 
 
@@ -91,17 +98,35 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         
-        composable(Screen.Support.route) { SupportScreen() }
-        composable(Screen.CurrencyConverter.route) { CurrencyConverterScreen(navController) }
-        composable(Screen.Weather.route) { WeatherScreen() }
+        composable(Screen.Support.route) {
+            SupportScreen(
+                onBack = {navController.popBackStack()}
+            )
+        }
+        composable(Screen.CurrencyConverter.route) {
+            CurrencyConverterScreen(
+                navController,
+                onBack = {navController.popBackStack()})
+        }
+        composable(Screen.Weather.route) {
+            WeatherScreen(
+                onBack = {navController.popBackStack()}
+            )
+        }
 
         composable(Screen.FavouriteMemories.route) {
             val viewModel = remember { FavouriteMemoriesViewModel() }
-            FavouriteMemoriesScreen(viewModel)
+            FavouriteMemoriesScreen(
+                viewModel,
+                onBack = {navController.popBackStack()}
+            )
         }
 
         composable(Screen.WhereToStay.route) {
-            WhereToStayScreen(navController, hotels)
+            WhereToStayScreen(
+                navController,
+                hotels,
+                onBack = {navController.popBackStack()})
         }
 
         composable(Screen.Map.route) { MapScreen(navController) }

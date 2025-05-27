@@ -27,16 +27,58 @@ import com.example.swakopmundapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EventDetailScreen(navController: NavHostController? = null) {
-    // Sample event data; replace with navigation arguments as needed
-    val event = Event(
-        id = "1",
-        title = "Swakop Beach Festival",
-        description = "Experience the ultimate beach celebration! Enjoy live music, food stalls, water sports, and cultural dances under the Atlantic sunset. This annual event brings together locals and tourists for a day of fun and entertainment. Don't miss out on the spectacular fireworks display at sunset!",
-        date = "24 June 2025",
-        location = "Swakopmund Main Beach",
-        imageUrl = null
-    )
+fun EventDetailScreen(navController: NavHostController? = null, eventId: String? = null) {
+    // Get the event based on the ID
+    val event = when (eventId) {
+        "1" -> Event(
+            id = "1",
+            title = "Swakop Beach Festival",
+            description = "Experience the ultimate beach celebration! Enjoy live music, food stalls, water sports, and cultural dances under the Atlantic sunset. This annual event brings together locals and tourists for a day of fun and entertainment. Don't miss out on the spectacular fireworks display at sunset!",
+            date = "24 June 2025",
+            location = "Swakopmund Main Beach",
+            imageResId = R.drawable.beach_festival
+        )
+        "2" -> Event(
+            id = "2",
+            title = "Desert Marathon",
+            description = "Annual marathon through the beautiful Namib Desert landscape. Challenge yourself in this unique race that combines athleticism with breathtaking scenery. The marathon features different categories for all fitness levels, from professional runners to casual participants. Experience the magic of running through one of the world's oldest deserts!",
+            date = "15 July 2025",
+            location = "Swakopmund Desert",
+            imageResId = R.drawable.desert_marathon
+        )
+        "3" -> Event(
+            id = "3",
+            title = "Cultural Food Festival",
+            description = "Taste the diverse flavors of Namibian cuisine. This festival celebrates the rich culinary heritage of Namibia, featuring traditional dishes, modern fusion cuisine, and cooking demonstrations by renowned chefs. Sample local delicacies, learn about traditional cooking methods, and enjoy live entertainment while savoring the best of Namibian gastronomy.",
+            date = "5 August 2025",
+            location = "Town Center",
+            imageResId = R.drawable.food_festival
+        )
+        "4" -> Event(
+            id = "4",
+            title = "Amis Day",
+            description = "Celebrate the Amis day club with live djs, dances, music, great food and good vibes. This special day happens only 3 times a year , featuring authentic performances. Join us in preserving and celebrating this important part of our cultural heritage.",
+            date = "20 August 2025",
+            location = "Community Center",
+            imageResId = R.drawable.amis_day
+        )
+        "5" -> Event(
+            id = "5",
+            title = "Trade Fair",
+            description = "Annual trade fair showcasing local businesses, crafts, and products from across Namibia. This premier business event brings together entrepreneurs, artisans, and companies from various sectors. Network with industry leaders, discover innovative products, and explore business opportunities in a vibrant marketplace setting.",
+            date = "10 September 2025",
+            location = "Exhibition Center",
+            imageResId = R.drawable.background2
+        )
+        else -> Event(
+            id = "1",
+            title = "Swakop Beach Festival",
+            description = "Experience the ultimate beach celebration! Enjoy live music, food stalls, water sports, and cultural dances under the Atlantic sunset. This annual event brings together locals and tourists for a day of fun and entertainment. Don't miss out on the spectacular fireworks display at sunset!",
+            date = "24 June 2025",
+            location = "Swakopmund Main Beach",
+            imageResId = R.drawable.beach_festival
+        )
+    }
 
     Scaffold(
         topBar = {
@@ -149,4 +191,3 @@ fun EventDetailScreen(navController: NavHostController? = null) {
         }
     }
 }
-

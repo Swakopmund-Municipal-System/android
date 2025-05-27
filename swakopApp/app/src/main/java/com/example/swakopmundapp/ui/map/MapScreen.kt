@@ -1,5 +1,6 @@
 package com.example.swakopmundapp.ui.map
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.History
@@ -21,6 +23,8 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +38,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -43,7 +48,6 @@ import coil.request.ImageRequest
 import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.navigation.Screen
 import com.example.swakopmundapp.ui.shared.BottomNavBar
-import com.example.swakopmundapp.ui.shared.TopBlueBar
 
 @Composable
 fun MapScreen(navController: NavHostController) {
@@ -51,7 +55,22 @@ fun MapScreen(navController: NavHostController) {
     var selectedType by remember { mutableStateOf("Foodie") }
 
     Scaffold(
-        topBar = { TopBlueBar(title = "Map") },
+        topBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(colorResource(id = R.color.bluebar))
+            ) {
+                Text(
+                    text = "Map",
+                    color = Color.White,
+                    fontSize = 30.sp,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        },
         bottomBar = {
             BottomNavBar(
                 currentRoute = Screen.Map.route,
@@ -65,7 +84,7 @@ fun MapScreen(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // Map image from the URL you provided
+            // Map image from the URL
             AsyncImage(
                 model = ImageRequest.Builder(LocalContext.current)
                     .data("https://media.wired.com/photos/59269cd37034dc5f91bec0f1/191:100/w_1280,c_limit/GoogleMapTA.jpg")
@@ -135,7 +154,6 @@ fun MapScreen(navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // Adventure type options in a grid layout
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -147,8 +165,7 @@ fun MapScreen(navController: NavHostController) {
                                 .height(48.dp)
                                 .clickable { selectedType = "Foodie" },
                             colors = CardDefaults.cardColors(
-                                containerColor = if (selectedType == "Foodie")
-                                    Color(0xFFF5F5F5) else Color(0xFFF5F5F5)
+                                containerColor = Color(0xFFF5F5F5)
                             ),
                             shape = RoundedCornerShape(8.dp)
                         ) {
@@ -172,8 +189,7 @@ fun MapScreen(navController: NavHostController) {
                                 .height(48.dp)
                                 .clickable { selectedType = "Adventure" },
                             colors = CardDefaults.cardColors(
-                                containerColor = if (selectedType == "Adventure")
-                                    Color(0xFFF5F5F5) else Color(0xFFF5F5F5)
+                                containerColor = Color(0xFFF5F5F5)
                             ),
                             shape = RoundedCornerShape(8.dp)
                         ) {
@@ -185,7 +201,7 @@ fun MapScreen(navController: NavHostController) {
                                 horizontalArrangement = Arrangement.Center
                             ) {
                                 Icon(
-                                    painter = painterResource(id = R.drawable.swakopmund_beach), // Replace with correct icon
+                                    imageVector = Icons.Default.Search,
                                     contentDescription = "Adventure",
                                     modifier = Modifier.size(20.dp),
                                     tint = Color.Gray
@@ -210,8 +226,7 @@ fun MapScreen(navController: NavHostController) {
                             .height(48.dp)
                             .clickable { selectedType = "Historian" },
                         colors = CardDefaults.cardColors(
-                            containerColor = if (selectedType == "Historian")
-                                Color(0xFFF5F5F5) else Color(0xFFF5F5F5)
+                            containerColor = Color(0xFFF5F5F5)
                         ),
                         shape = RoundedCornerShape(8.dp)
                     ) {

@@ -1,7 +1,6 @@
 package com.example.swakopmundapp.ui.municipal
 
 import androidx.annotation.DrawableRes
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -34,17 +33,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.swakopmundapp.R
-
-
+import com.example.swakopmundapp.ui.navigation.Screen
 
 @Composable
 fun MunicipalScreen(
+    navController: NavHostController,
     onBack: () -> Unit,
     onOptionSelected: (MunicipalOption) -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
 
+        // Top blue bar
         Box(
             modifier = Modifier
                 .fillMaxWidth()
@@ -72,16 +74,25 @@ fun MunicipalScreen(
             )
         }
 
-
+        // Options list
         LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(listOf(
-                MunicipalOption.BankDetails,
-                MunicipalOption.Departments,
-                MunicipalOption.Procurement,
-                MunicipalOption.Downloads,
-                MunicipalOption.ReportAnIssue
-            )) { option ->
-                MunicipalRowItem(option, onOptionSelected)
+            items(
+                listOf(
+                    MunicipalOption.BankDetails,
+                    MunicipalOption.Departments,
+                    MunicipalOption.Procurement,
+                    MunicipalOption.Downloads,
+                    MunicipalOption.ReportAnIssue
+                )
+            ) { option ->
+                MunicipalRowItem(option) {
+                    if (option is MunicipalOption.ReportAnIssue) {
+                        // Navigate directly to Report Issue screen
+                        navController.navigate(Screen.ReportIssue.route)
+                    } else {
+                        onOptionSelected(option)
+                    }
+                }
                 Divider(
                     color = Color.LightGray.copy(alpha = 0.5f),
                     thickness = 1.dp,
@@ -96,26 +107,25 @@ sealed class MunicipalOption(
     @DrawableRes val icon: Int,
     val title: String
 ) {
-    object BankDetails   : MunicipalOption(R.drawable.bank,   "Bank Details")
-    object Departments   : MunicipalOption(R.drawable.departments,    "Departments")
-    object Procurement   : MunicipalOption(R.drawable.procurement,    "Procurement")
-    object Downloads     : MunicipalOption(R.drawable.downloads,      "Downloads")
-    object ReportAnIssue : MunicipalOption(R.drawable.reportissue,  "Report an Issue")
+    object BankDetails   : MunicipalOption(R.drawable.bank,       "Bank Details")
+    object Departments   : MunicipalOption(R.drawable.departments, "Departments")
+    object Procurement   : MunicipalOption(R.drawable.procurement, "Procurement")
+    object Downloads     : MunicipalOption(R.drawable.downloads,   "Downloads")
+    object ReportAnIssue : MunicipalOption(R.drawable.reportissue, "Report an Issue")
 }
 
 @Composable
 private fun MunicipalRowItem(
     option: MunicipalOption,
-    onOptionSelected: (MunicipalOption) -> Unit
+    onItemClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onOptionSelected(option) }
+            .clickable { onItemClick() }
             .padding(horizontal = 16.dp, vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-
         Icon(
             painter = painterResource(id = option.icon),
             contentDescription = option.title,
@@ -145,7 +155,9 @@ private fun MunicipalRowItem(
 @Preview(showBackground = true)
 @Composable
 fun MunicipalScreenPreview() {
+    // For preview purposes, pass dummy navController via rememberNavController()
     MunicipalScreen(
+        navController = rememberNavController(),
         onBack = {},
         onOptionSelected = {}
     )

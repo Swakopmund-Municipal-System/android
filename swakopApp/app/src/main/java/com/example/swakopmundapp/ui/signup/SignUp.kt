@@ -26,6 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.components.AnnotatedClickableText
 import com.example.swakopmundapp.ui.components.ButtonComponent
@@ -37,10 +39,12 @@ import com.example.swakopmundapp.ui.components.PasswordTextFieldComponent
 import com.example.swakopmundapp.ui.components.ResidencyDropdownField
 import com.example.swakopmundapp.ui.components.ResidencyStatus
 import com.example.swakopmundapp.ui.components.WhiteSheet
+import com.example.swakopmundapp.ui.navigation.Screen
+import androidx.navigation.compose.rememberNavController
 
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(navController: NavHostController) {
     var residency by remember { mutableStateOf<ResidencyStatus?>(null) }
     Box(modifier = Modifier.fillMaxSize()) {
 
@@ -100,7 +104,7 @@ fun SignUpScreen() {
                 ) { tag ->
                     when (tag) {
                         "LOGIN" -> {
-                            //Here navigation to the next screen.
+                            navController.navigate(Screen.Login.route)
                         }
                     }
                 }
@@ -113,5 +117,5 @@ fun SignUpScreen() {
 @Preview
 @Composable
 fun SignUpPreview() {
-    SignUpScreen()
+    SignUpScreen(navController = rememberNavController())
 }

@@ -1,10 +1,13 @@
 package com.example.swakopmundapp.ui.navigation
 
-import FavouriteMemoriesScreen
-import TourismGridScreen
 import android.annotation.SuppressLint
+import android.net.Uri
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,6 +21,7 @@ import com.example.swakopmundapp.ui.about.AboutScreen
 import com.example.swakopmundapp.ui.community.CommunityScreen
 import com.example.swakopmundapp.ui.currency.CurrencyConverterScreen
 import com.example.swakopmundapp.ui.currency.ExchangeChartScreen
+import com.example.swakopmundapp.ui.favouritememories.FavouriteMemoriesScreen
 import com.example.swakopmundapp.ui.home.HomeScreen
 import com.example.swakopmundapp.ui.login.LoginScreen
 import com.example.swakopmundapp.ui.map.MapScreen
@@ -28,9 +32,12 @@ import com.example.swakopmundapp.ui.profile.EditProfileScreen
 import com.example.swakopmundapp.ui.profile.ForgotPasswordScreen
 import com.example.swakopmundapp.ui.profile.ProfileScreen
 import com.example.swakopmundapp.ui.municipal.MunicipalScreen
+import com.example.swakopmundapp.ui.reportissue.ReportIssueScreen
+import com.example.swakopmundapp.ui.signup.SignUpScreen
 import com.example.swakopmundapp.ui.startscreen.StartScreen
 import com.example.swakopmundapp.ui.support.SupportScreen
 import com.example.swakopmundapp.ui.tourism.TourismDetailScreen
+import com.example.swakopmundapp.ui.tourism.TourismGridScreen
 import com.example.swakopmundapp.ui.weather.WeatherScreen
 import com.example.swakopmundapp.ui.wheretostay.Hotel
 import com.example.swakopmundapp.ui.wheretostay.HotelDetailsScreen
@@ -48,9 +55,12 @@ fun AppNavGraph(navController: NavHostController) {
     )
 
     NavHost(navController = navController, startDestination = Screen.Start.route) {
+
         composable(Screen.Home.route) { HomeScreen(navController) }
+
         composable(Screen.Municipal.route) {
             MunicipalScreen(
+                navController = navController,
                 onBack = { navController.popBackStack() },
                 onOptionSelected = { option: MunicipalOption ->
                     when (option) {
@@ -58,13 +68,38 @@ fun AppNavGraph(navController: NavHostController) {
                             navController.navigate(Screen.BankDetails.route)
                         }
                         // Add more when ready
+                        is MunicipalOption.ReportAnIssue -> {
+                            navController.navigate(Screen.ReportIssue.route)
+                        }
                         else -> {}
                     }
                 }
             )
         }
 
-        composable(Screen.About.route) { AboutScreen() }
+        composable(Screen.ReportIssue.route) {
+            // 1) hoist state
+            var selectedType   by rememberSaveable { mutableStateOf<String?>(null) }
+            var description    by rememberSaveable { mutableStateOf("") }
+            var imageUri       by rememberSaveable { mutableStateOf<Uri?>(null) }
+
+            ReportIssueScreen(
+                issueTypes           = listOf("Billing","Service","Other"),
+                selectedType         = selectedType,
+                onTypeSelected       = { selectedType = it },
+                description          = description,
+                onDescriptionChange  = { description = it },
+                imageUri             = imageUri,
+                onSelectImage        = { /* launch picker → update imageUri */ },
+                onTakePhoto          = { /* launch camera → update imageUri */ },
+                onReport             = { /* submit; then navController.popBackStack() */ },
+                onBack               = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.About.route) { AboutScreen(
+                onBack = { navController.popBackStack() }
+        ) }
 
         composable(Screen.TourismGrid.route) {
             val viewModel = TourismViewModel()
@@ -88,13 +123,15 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         composable(Screen.Community.route) { CommunityScreen() }
-        composable(Screen.Support.route) { SupportScreen() }
+        composable(Screen.Support.route) { SupportScreen(
+            onBack = { navController.popBackStack() }
+        ) }
         composable(Screen.CurrencyConverter.route) { CurrencyConverterScreen(navController) }
-        composable(Screen.Weather.route) { WeatherScreen() }
+        composable(Screen.Weather.route) { WeatherScreen(navController) }
 
         composable(Screen.FavouriteMemories.route) {
             val viewModel = remember { FavouriteMemoriesViewModel() }
-            FavouriteMemoriesScreen(viewModel)
+            FavouriteMemoriesScreen(navController, viewModel)
         }
 
         composable(Screen.WhereToStay.route) {
@@ -113,8 +150,12 @@ fun AppNavGraph(navController: NavHostController) {
             LoginScreen(navController)
         }
 
+        composable(Screen.SignUp.route) {
+            SignUpScreen(navController)
+        }
+
         composable(Screen.ExchangeChart.route) {
-            ExchangeChartScreen()
+            ExchangeChartScreen(navController)
         }
 
         composable(Screen.Start.route) {

@@ -1,8 +1,12 @@
 package com.example.swakopmundapp.ui.home
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -18,11 +22,17 @@ import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Support
 import androidx.compose.material.icons.filled.WbSunny
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.navigation.Screen
@@ -90,7 +100,22 @@ fun HomeScreen(navController: NavHostController) {
     )
 
     Scaffold(
-        topBar = { TopBlueBar(title = "Home") },
+        topBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(colorResource(id = R.color.bluebar))
+            ) {
+                Text(
+                    text = "Home",
+                    color = Color.White,
+                    fontSize = 30.sp,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        },
         bottomBar = {
             BottomNavBar(
                 currentRoute = Screen.Home.route,
@@ -103,10 +128,8 @@ fun HomeScreen(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // Image carousel at the top
             ImageCarousel(imageResId = R.drawable.swakopmund_beach)
 
-            // Grid of menu items
             LazyVerticalGrid(
                 columns = GridCells.Fixed(3),
                 contentPadding = PaddingValues(12.dp),
@@ -116,9 +139,7 @@ fun HomeScreen(navController: NavHostController) {
                     MenuGridItem(
                         icon = item.icon,
                         label = item.label,
-                        onClick = {
-                            navController.navigate(item.route)
-                        }
+                        onClick = { navController.navigate(item.route) }
                     )
                 }
             }

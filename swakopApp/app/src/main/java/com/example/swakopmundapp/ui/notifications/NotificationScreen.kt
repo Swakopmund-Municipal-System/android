@@ -1,7 +1,9 @@
 package com.example.swakopmundapp.ui.notifications
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,12 +21,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.navigation.Screen
 import com.example.swakopmundapp.ui.shared.BottomNavBar
 import com.example.swakopmundapp.ui.shared.TopBlueBar
@@ -61,7 +68,22 @@ fun NotificationScreen(navController: NavHostController) {
     )
 
     Scaffold(
-        topBar = { TopBlueBar(title = "Notifications") },
+        topBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(colorResource(id = R.color.bluebar))
+            ) {
+                Text(
+                    text = "Notifications",
+                    color = Color.White,
+                    fontSize = 30.sp,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        },
         bottomBar = {
             BottomNavBar(
                 currentRoute = Screen.Notifications.route,

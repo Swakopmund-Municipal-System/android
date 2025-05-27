@@ -1,7 +1,9 @@
 package com.example.swakopmundapp.ui.profile
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +20,7 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,11 +29,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.navigation.Screen
 import com.example.swakopmundapp.ui.shared.BottomNavBar
 import com.example.swakopmundapp.ui.shared.TopBlueBar
@@ -42,7 +47,22 @@ fun ProfileScreen(navController: NavHostController) {
     val profileImage = "https://i.pinimg.com/736x/3f/94/70/3f9470b34a8e3f526dbdb022f9f19cf7.jpg" // Placeholder image
 
     Scaffold(
-        topBar = { TopBlueBar(title = "User Profile") },
+        topBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .background(colorResource(id = R.color.bluebar))
+            ) {
+                Text(
+                    text = "User Profile",
+                    color = Color.White,
+                    fontSize = 30.sp,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        },
         bottomBar = {
             BottomNavBar(currentRoute = Screen.Profile.route, navController = navController)
         }
@@ -76,7 +96,7 @@ fun ProfileScreen(navController: NavHostController) {
             }
 
             ProfileItem("Add Pin", Icons.Default.Place) {
-                // navController.navigate(Screen.AddPin.route) // Optional
+                // navController.navigate(Screen.AddPin.route)
             }
 
             ProfileItem("Invite a Friend", Icons.Default.Share) {

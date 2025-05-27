@@ -6,7 +6,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,30 +29,31 @@ fun SupportScreen(onBack: () -> Unit = {}) {
         modifier = Modifier.fillMaxSize(),
         contentScale = ContentScale.Crop
     )
+
     Column(modifier = Modifier.fillMaxSize()) {
+        // Top bar styled same as MunicipalScreen
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(56.dp) // Standard app bar height
-                .background(color = colorResource(id = R.color.bluebar))
+                .height(100.dp)
+                .background(colorResource(id = R.color.bluebar))
         ) {
             IconButton(
                 onClick = onBack,
                 modifier = Modifier
                     .align(Alignment.CenterStart)
-                    .padding(start = 8.dp)
+                    .padding(start = 16.dp)
             ) {
                 Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                    imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Back",
                     tint = Color.White
                 )
             }
-
             Text(
                 text = "Support",
                 color = Color.White,
-                fontSize = 20.sp,
+                fontSize = 30.sp,
                 style = MaterialTheme.typography.titleLarge,
                 modifier = Modifier.align(Alignment.Center)
             )
@@ -104,7 +105,6 @@ fun SupportScreen(onBack: () -> Unit = {}) {
 
                     Text(
                         "Are guided tours available?\n Yes, book in advance via the app.",
-
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))

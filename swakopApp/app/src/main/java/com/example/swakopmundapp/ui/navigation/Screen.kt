@@ -11,6 +11,10 @@ sealed class Screen(val route: String) {
     }
 
     object Community : Screen("community")
+    object EmergencyServices : Screen("emergency_services")
+    object EmergencyContacts : Screen("emergency_contacts")
+    object Events : Screen("events")
+    object EventDetail : Screen("event_detail")
     object Support : Screen("support")
     object CurrencyConverter : Screen("currency")
     object Weather : Screen("weather")

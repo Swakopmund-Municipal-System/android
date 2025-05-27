@@ -3,8 +3,8 @@ package com.example.swakopmundapp.ui.community
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -28,7 +28,7 @@ data class Event(
     val description: String,
     val date: String,
     val location: String,
-    val imageUrl: String? = null
+    val imageResId: Int
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,18 +56,29 @@ fun EventsScreen(navController: NavHostController? = null) {
             )
         }
     ) { paddingValues ->
-        LazyColumn(
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            items(sampleEvents) { event ->
-                EventCard(
-                    event = event,
-                    onClick = { navController?.navigate(Screen.EventDetail.route) }
-                )
+            val scrollState = rememberScrollState()
+
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+                    .verticalScroll(scrollState)
+                    .padding(end = 12.dp), // Add padding for scrollbar
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                sampleEvents.forEach { event ->
+                    EventCard(
+                        event = event,
+                        onClick = {
+                            navController?.navigate("event_detail/${event.id}")
+                        }
+                    )
+                }
             }
         }
     }
@@ -87,16 +98,16 @@ private fun EventCard(
     ) {
         Column {
             Image(
-                painter = painterResource(id = R.drawable.sample_event_banner),
+                painter = painterResource(id = event.imageResId),
                 contentDescription = "Event Image",
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(120.dp),
+                    .height(100.dp), // Reduced height to make cards more compact
                 contentScale = ContentScale.Crop
             )
 
             Column(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(12.dp) // Reduced padding
             ) {
                 Text(
                     text = event.title,
@@ -119,10 +130,10 @@ private val sampleEvents = listOf(
     Event(
         id = "1",
         title = "Swakop Beach Festival",
-        description = "Experience the ultimate beach celebration! Enjoy live music, food stalls, water sports, and cultural dances under the Atlantic sunset.",
+        description = "Experience the ultimate beach celebration! Enjoy live music, food stalls, water sports, and cultural dances at the ocean.",
         date = "24 June 2025",
         location = "Swakopmund Main Beach",
-        imageUrl = null
+        imageResId = R.drawable.beach_festival
     ),
     Event(
         id = "2",
@@ -130,7 +141,7 @@ private val sampleEvents = listOf(
         description = "Annual marathon through the beautiful Namib Desert landscape.",
         date = "15 July 2025",
         location = "Swakopmund Desert",
-        imageUrl = null
+        imageResId = R.drawable.desert_marathon
     ),
     Event(
         id = "3",
@@ -138,6 +149,22 @@ private val sampleEvents = listOf(
         description = "Taste the diverse flavors of Namibian cuisine.",
         date = "5 August 2025",
         location = "Town Center",
-        imageUrl = null
+        imageResId = R.drawable.food_festival
+    ),
+    Event(
+        id = "4",
+        title = "Amis Day",
+        description = "Celebrate the rich cultural heritage of the Amis community with traditional dances, music, and ceremonies.",
+        date = "20 August 2025",
+        location = "Community Center",
+        imageResId = R.drawable.amis_day
+    ),
+    Event(
+        id = "5",
+        title = "Trade Fair",
+        description = "Annual trade fair showcasing local businesses, crafts, and products from across Namibia.",
+        date = "10 September 2025",
+        location = "Exhibition Center",
+        imageResId = R.drawable.trade_fair
     )
 )

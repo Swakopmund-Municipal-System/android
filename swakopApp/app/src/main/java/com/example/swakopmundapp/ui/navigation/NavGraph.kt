@@ -42,6 +42,9 @@ import com.example.swakopmundapp.ui.weather.WeatherScreen
 import com.example.swakopmundapp.ui.wheretostay.Hotel
 import com.example.swakopmundapp.ui.wheretostay.HotelDetailsScreen
 import com.example.swakopmundapp.ui.wheretostay.WhereToStayScreen
+import com.example.swakopmundapp.ui.community.EmergencyContactsScreen
+import com.example.swakopmundapp.ui.community.EventsScreen
+import com.example.swakopmundapp.ui.community.EventDetailScreen
 
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
@@ -140,6 +143,22 @@ fun AppNavGraph(navController: NavHostController) {
 
         composable(Screen.Map.route) { MapScreen(navController) }
         composable(Screen.Notifications.route) { NotificationScreen(navController) }
+
+        //Maria
+
+        composable(Screen.Community.route) {
+            CommunityScreen(navController)
+        }
+        composable(Screen.EmergencyContacts.route) {
+            EmergencyContactsScreen(navController)
+        }
+        composable(Screen.Events.route) {
+            EventsScreen(navController)
+        }
+        composable(Screen.EventDetail.route) {
+            EventDetailScreen(navController) }
+
+
 
         // Profile navigations --------------------------------------
         composable(Screen.Profile.route) { ProfileScreen(navController) }

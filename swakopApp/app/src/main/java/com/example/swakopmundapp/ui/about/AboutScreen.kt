@@ -54,7 +54,7 @@ fun AboutScreen(onBack: () -> Unit = {}) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(65.dp)
                     .background(colorResource(id = R.color.bluebar)),
                 contentAlignment = Alignment.Center
             ) {
@@ -73,7 +73,7 @@ fun AboutScreen(onBack: () -> Unit = {}) {
                 Text(
                     text = "About",
                     color = Color.White,
-                    fontSize = 30.sp,
+                    fontSize = 20.sp,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.align(Alignment.Center)
                 )

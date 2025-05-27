@@ -13,6 +13,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -31,7 +37,9 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun WeatherScreen() {
+fun WeatherScreen(
+    onBack: () -> Unit = {}
+) {
     val isDayTime = remember { LocalDateTime.now().hour in 6..18 }
 
     // Background based on time
@@ -56,11 +64,41 @@ fun WeatherScreen() {
     )
 
     Scaffold(
-        topBar = { TopBlueBar(title = "Weather") }
+        topBar = {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(65.dp)
+                    .background(colorResource(id = R.color.bluebar)),
+                contentAlignment = Alignment.Center
+            ) {
+                IconButton(
+                    onClick = onBack,
+                    modifier = Modifier
+                        .align(Alignment.CenterStart)
+                        .padding(start = 16.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back",
+                        tint = Color.White
+                    )
+                }
+                Text(
+                    text = "Weather",
+                    color = Color.White,
+                    fontSize = 20.sp,
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        }
     ) { padding ->
-        Box(modifier = Modifier
-            .padding(padding)
-            .fillMaxSize()) {
+        Box(
+            modifier = Modifier
+                .padding(padding)
+                .fillMaxSize()
+        ) {
 
             // Background Image
             Image(
@@ -73,9 +111,11 @@ fun WeatherScreen() {
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(Brush.verticalGradient(
-                        colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.4f))
-                    ))
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(Color.Transparent, Color.Black.copy(alpha = 0.4f))
+                        )
+                    )
             )
 
             // Weather Content
@@ -87,14 +127,26 @@ fun WeatherScreen() {
             ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text("Swakopmund", fontSize = 24.sp, fontWeight = FontWeight.Bold, color = Color.White)
-                    Text("Updated ${LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a"))}",
-                        fontSize = 14.sp, color = Color.White)
+                    Text(
+                        "Updated ${
+                            LocalDateTime.now().format(
+                                DateTimeFormatter.ofPattern("dd MMM yyyy, hh:mm a")
+                            )
+                        }",
+                        fontSize = 14.sp,
+                        color = Color.White
+                    )
 
                     Spacer(modifier = Modifier.height(24.dp))
 
                     // Main Weather Info
                     Text(text = weather.condition, fontSize = 24.sp, color = Color.White)
-                    Text(text = "${weather.temperature}°C", fontSize = 60.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                    Text(
+                        text = "${weather.temperature}°C",
+                        fontSize = 60.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
 
                     Text(
                         text = if (isDayTime) "Stay Hydrated for the Day" else "Time to Wind Down",
@@ -127,6 +179,7 @@ fun WeatherScreen() {
             }
         }
     }
+
 }
 
 @Composable

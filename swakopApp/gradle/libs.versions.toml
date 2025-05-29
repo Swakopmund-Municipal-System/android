@@ -51,6 +51,7 @@ retrofit2-kotlin-coroutines-adapter = { group = "com.jakewharton.retrofit", name
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-android-compat = { group = "io.insert-koin", name = "koin-android-compat", version.ref = "koin" }
 koin-androidx-navigation = { group = "io.insert-koin", name = "koin-androidx-navigation", version.ref = "koin" }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version = "3.4.6" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
 okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }

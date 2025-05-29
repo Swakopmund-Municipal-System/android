@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.retrofit2.kotlin.coroutines.adapter)
     implementation(libs.koin.android.compat)
     implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
     implementation(libs.logging.interceptor)
     implementation(libs.okhttp)
     implementation(libs.converter.gson)

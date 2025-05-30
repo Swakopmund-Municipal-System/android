@@ -1,40 +1,58 @@
 package com.example.swakopmundapp.di
 
 import com.example.swakopmundapp.data.network.OpenExchangeRatesApi
+import com.example.swakopmundapp.data.network.WeatherApiService // <-- Add this import
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.qualifier.named // <-- Add this for named instances if you go that route
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+// const val OPEN_EXCHANGE_RATES_RETROFIT = "OpenExchangeRatesRetrofit"
+// const val WEATHER_API_RETROFIT = "WeatherApiRetrofit"
+
 val networkModule = module {
 
-    // OkHttp Logging Interceptor
+    // OkHttp Logging Interceptor (shared)
     single {
         HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY // Logs request and response bodies
+            level = HttpLoggingInterceptor.Level.BODY
         }
     }
 
-    // OkHttpClient
+    // OkHttpClient (shared)
     single {
         OkHttpClient.Builder()
-            .addInterceptor(get<HttpLoggingInterceptor>()) // Add the logger
-            // You can add other interceptors (e.g., for headers) here
+            .addInterceptor(get<HttpLoggingInterceptor>())
             .build()
     }
 
-    // Retrofit instance
-    single<Retrofit> {
+    // --- Currency Exchange API Setup ---
+    single<Retrofit>(named("OpenExchangeRatesRetrofit")) {
         Retrofit.Builder()
-            .baseUrl("https://openexchangerates.org/api/") // Base URL for the API
-            .client(get<OkHttpClient>())
-            .addConverterFactory(GsonConverterFactory.create()) // Use Gson for JSON
+            .baseUrl("https://openexchangerates.org/api/")
+            .client(get<OkHttpClient>()) // Use the shared OkHttpClient
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    // API Service (com.example.swakopmundapp.data.network.OpenExchangeRatesApi)
     single<OpenExchangeRatesApi> {
-        get<Retrofit>().create(OpenExchangeRatesApi::class.java) // Create instance from Retrofit
+        // Get the named Retrofit instance
+        get<Retrofit>(named("OpenExchangeRatesRetrofit")).create(OpenExchangeRatesApi::class.java)
+    }
+
+    // --- Weather API Setup ---
+    single<Retrofit>(named("WeatherApiRetrofit")) {
+        Retrofit.Builder()
+            .baseUrl("http://196.216.167.82/api/")
+            .client(get<OkHttpClient>())      // Use the shared OkHttpClient
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    single<WeatherApiService> {
+        // Get the named Retrofit instance for Weather
+        get<Retrofit>(named("WeatherApiRetrofit")).create(WeatherApiService::class.java)
     }
 }

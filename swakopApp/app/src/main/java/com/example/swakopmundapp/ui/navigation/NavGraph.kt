@@ -38,6 +38,7 @@ import com.example.swakopmundapp.ui.wheretostay.WhereToStayScreen
 import com.example.swakopmundapp.ui.community.EmergencyContactsScreen
 import com.example.swakopmundapp.ui.community.EventsScreen
 import com.example.swakopmundapp.ui.community.EventDetailScreen
+import com.example.swakopmundapp.ui.signup.SignUpScreen
 
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
@@ -169,6 +170,10 @@ fun AppNavGraph(navController: NavHostController) {
 
         composable(Screen.Login.route) {
             LoginScreen(navController)
+        }
+
+        composable(Screen.SignUp.route) {
+            SignUpScreen(navController)
         }
 
         composable(Screen.ExchangeChart.route) {

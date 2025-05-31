@@ -17,7 +17,7 @@ internal interface Api {
     suspend fun signup(@Body signup: SignUpDto): Response<SignUpResponseDto>
 
     @POST("auth/user/login/")
-    suspend fun login(@Body signup: LoginDto): Response<LoginResponseDto>
+    suspend fun login(@Body login: LoginDto): Response<LoginResponseDto>
 
     @POST("auth/user/logout/")
     suspend fun logout(): Response<Any>

@@ -23,7 +23,7 @@ internal class BasicAuthInterceptor: Interceptor {
         var request = chain.request()
 
         request = request.newBuilder()
-            .header("Authorization", "Bearer $token")
+            .header("Authorization", "Token $token")
             .header("ApiKey", API_KEY)
             .build()
 

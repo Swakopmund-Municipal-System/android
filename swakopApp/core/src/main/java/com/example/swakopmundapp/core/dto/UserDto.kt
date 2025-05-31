@@ -5,7 +5,7 @@ import java.io.Serializable
 
 data class UserDto(
 
-    @SerializedName("userName")
-    var userName: String
+    @SerializedName("email")
+    var email: String
 
 ) : Serializable

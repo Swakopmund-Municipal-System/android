@@ -5,6 +5,8 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
+// TODO: PLEASE MOVE LOGIC TO SERVICE MODULE
+
 interface OpenExchangeRatesApi {
     @GET("latest.json")  // This hits the "latest.json" endpoint
     suspend fun getLatestRates(

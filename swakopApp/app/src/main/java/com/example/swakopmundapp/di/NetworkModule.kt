@@ -7,6 +7,8 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+// TODO: PLEASE MOVE LOGIC TO SERVICE MODULE
+
 val networkModule = module {
 
     // OkHttp Logging Interceptor

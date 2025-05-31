@@ -13,10 +13,10 @@ class ApplicationClass : Application() {
         super.onCreate()
 
         startKoin {
-            // Log Koin activity to Logcat. Use Level.ERROR or Level.NONE for release builds.
+            //chat said somthing like to  Log Koin activity to Logcat. Use Level.ERROR or Level.NONE for release builds.
             androidLogger(Level.DEBUG) // Or Level.INFO / Level.ERROR
             // Provide Android Application context to Koin
-            androidContext(this@ApplicationClass) // Use the correct class name
+            androidContext(this@ApplicationClass)
             // Declare all Koin modules to be used by the application
             modules(listOf(networkModule, viewModelModule))
         }

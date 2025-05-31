@@ -102,7 +102,9 @@ fun SignUpScreen(navController: NavController) {
                     )
 
                     Spacer(modifier = Modifier.height(30.dp))
-                    ButtonComponent(value = stringResource(id = R.string.signup))
+                    ButtonComponent(
+                        value = stringResource(id = R.string.signup),
+                        onClick = {})
 
                     Spacer(modifier = Modifier.height(10.dp))
                     AnnotatedClickableText(

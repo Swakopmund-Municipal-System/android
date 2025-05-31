@@ -30,7 +30,7 @@ class ExchangeViewModel(
     private val _uiState = MutableStateFlow(CurrencyConverterUiState(isLoading = true))
     val uiState: StateFlow<CurrencyConverterUiState> = _uiState.asStateFlow()
 
-    private val appId = "aeaf2e96797e42bc9f4e76ea91345e6d" // Make sure this is your valid key
+    private val appId = "aeaf2e96797e42bc9f4e76ea91345e6d" 
 
     init {
         fetchExchangeRates()

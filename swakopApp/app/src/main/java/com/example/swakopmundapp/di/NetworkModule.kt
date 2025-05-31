@@ -9,6 +9,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 // TODO: PLEASE MOVE LOGIC TO SERVICE MODULE
 
+// const val OPEN_EXCHANGE_RATES_RETROFIT = "OpenExchangeRatesRetrofit"
+// const val WEATHER_API_RETROFIT = "WeatherApiRetrofit"
+
 val networkModule = module {
 
     // OkHttp Logging Interceptor

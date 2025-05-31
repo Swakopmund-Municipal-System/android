@@ -193,7 +193,7 @@ fun LoginScreen(
                     defaultStyle = TextStyle(fontSize = 14.sp)
                 ) { tag ->
                     if (tag == "SIGNUP") {
-                        // Future navigation to signup screen
+                        navController.navigate(Screen.SignUp.route)
                     }
                 }
             }

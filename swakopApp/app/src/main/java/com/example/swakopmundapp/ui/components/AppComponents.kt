@@ -1,15 +1,9 @@
 package com.example.swakopmundapp.ui.components
 
-import android.util.Log
 import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
@@ -24,13 +18,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
@@ -56,14 +48,9 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.widthIn
-import androidx.compose.foundation.pager.HorizontalPager
-import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.text.ClickableText
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowDropUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -72,22 +59,85 @@ import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.Dp
-import kotlin.math.log
+
+@Composable
+fun LoginTextFieldComponent(
+    labelValue: String,
+    value: String = "",
+    onValueChange: (String) -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    OutlinedTextField(
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(text = labelValue) },
+        modifier = modifier.fillMaxWidth(),
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+    )
+}
+
+@Composable
+fun LogoutItem(
+    label: String,
+    icon: ImageVector,
+    iconTint: Color = Color.Black,
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(enabled = enabled) { onClick() }
+            .padding(vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            icon,
+            contentDescription = null,
+            tint = if (enabled) iconTint else iconTint.copy(alpha = 0.5f)
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(
+            text = label,
+            fontSize = 16.sp,
+            color = if (enabled) Color.Black else Color.Gray
+        )
+    }
+}
+
+@Composable
+fun ProfileItem(
+    label: String,
+    icon: ImageVector,
+    iconTint: Color = Color.Black,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(icon, contentDescription = null, tint = iconTint)
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(text = label, fontSize = 16.sp)
+    }
+}
 
 
 @Composable
-fun NormalTextComponent(value:String) {
+fun NormalTextComponent(value: String) {
     Text(
         text = value,
         modifier = Modifier
@@ -97,14 +147,13 @@ fun NormalTextComponent(value:String) {
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
             fontStyle = FontStyle.Normal
-        )
-        , color = Color.Black,
+        ), color = Color.Black,
         textAlign = TextAlign.Center
     )
 }
 
 @Composable
-fun HeadingTextComponent(value:String) {
+fun HeadingTextComponent(value: String) {
     Text(
         text = value,
         modifier = Modifier
@@ -114,20 +163,23 @@ fun HeadingTextComponent(value:String) {
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal
-        )
-        , color = Color.Black,
+        ), color = Color.Black,
         textAlign = TextAlign.Center
     )
 }
 
 @Composable
-fun MyTextFieldComponent(labelValue: String){
+fun MyTextFieldComponent(
+    labelValue: String,
+    value: String = "",
+    onValueChange: (String) -> Unit = {}
+) {
     val textValue = remember {
         mutableStateOf("")
     }
 
     OutlinedTextField(
-        label = {Text(text = labelValue)},
+        label = { Text(text = labelValue) },
         keyboardOptions = KeyboardOptions.Default,
         value = textValue.value,
         onValueChange = {
@@ -137,39 +189,31 @@ fun MyTextFieldComponent(labelValue: String){
 }
 
 @Composable
-fun PasswordTextFieldComponent(labelValue: String){
-    val password = remember {
-        mutableStateOf("")
-    }
-
-    val passwordVisible = remember {
-        mutableStateOf(false)
-    }
+fun PasswordTextFieldComponent(
+    labelValue: String,
+    value: String = "",
+    onValueChange: (String) -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    var passwordVisible by remember { mutableStateOf(false) }
 
     OutlinedTextField(
-        label = {Text(text = labelValue)},
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(text = labelValue) },
+        modifier = modifier.fillMaxWidth(),
+        singleLine = true,
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        value = password.value,
-        onValueChange = {
-            password.value = it
-        },
         trailingIcon = {
-            val iconImage = if(passwordVisible.value) {
+            val image = if (passwordVisible)
                 Icons.Filled.Visibility
-            } else{
-                Icons.Filled.VisibilityOff
-            }
-            var description = if(passwordVisible.value){
-                stringResource(id = R.string.hide_password)
-            } else {
-                stringResource(id = R.string.show_password)
-            }
+            else Icons.Filled.VisibilityOff
 
-            IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-                Icon(imageVector = iconImage, contentDescription = description)
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                Icon(imageVector = image, contentDescription = null)
             }
-        },
-        visualTransformation = if(passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
+        }
     )
 }
 
@@ -177,9 +221,11 @@ fun PasswordTextFieldComponent(labelValue: String){
 fun ButtonComponent(
     value: String,
     onClick: () -> Unit = {},
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
+        enabled = enabled,
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
             .widthIn(200.dp)
@@ -193,10 +239,17 @@ fun ButtonComponent(
                 .heightIn(48.dp)
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(
-                            colorResource(id = R.color.blue1),
-                            Color.Black
-                        )
+                        colors = if (enabled) {
+                            listOf(
+                                colorResource(id = R.color.blue1),
+                                Color.Black
+                            )
+                        } else {
+                            listOf(
+                                Color.Gray.copy(alpha = 0.6f),
+                                Color.DarkGray.copy(alpha = 0.6f)
+                            )
+                        }
                     )
                 ),
             contentAlignment = Alignment.Center
@@ -204,7 +257,8 @@ fun ButtonComponent(
             Text(
                 text = value,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = if (enabled) Color.White else Color.White.copy(alpha = 0.6f)
             )
         }
     }
@@ -224,7 +278,7 @@ fun WhiteSheet(
             .fillMaxHeight(heightFraction),
         shape = RoundedCornerShape(
             topStart = cornerRadius,
-            topEnd   = cornerRadius
+            topEnd = cornerRadius
         ),
         color = backgroundColor,
         tonalElevation = 4.dp,
@@ -306,7 +360,12 @@ fun MenuTile(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
-                        Brush.verticalGradient(listOf(colorResource(id = R.color.blue1), Color.Black))
+                        Brush.verticalGradient(
+                            listOf(
+                                colorResource(id = R.color.blue1),
+                                Color.Black
+                            )
+                        )
                     ),
                 contentAlignment = Alignment.Center
             ) {
@@ -324,17 +383,17 @@ fun MenuTile(
 }
 
 
-
 @Composable
 fun BottomNavBar(
-    items: List<Pair<Int,String>>,
+    items: List<Pair<Int, String>>,
     selectedIndex: Int,
-    onItemSelected: (Int)->Unit,
+    onItemSelected: (Int) -> Unit,
     iconSize: Dp = 32.dp
 ) {
     NavigationBar(
         containerColor = Color.White,
-        tonalElevation = 8.dp) {
+        tonalElevation = 8.dp
+    ) {
         items.forEachIndexed { idx, (icon, label) ->
             NavigationBarItem(
                 icon = {
@@ -352,19 +411,16 @@ fun BottomNavBar(
     }
 }
 
-enum class ResidencyStatus(val displayName: String) {
-    Citizen("Citizen or Registered Resident"),
-    Permanent("Permanent Resident"),
-    Temporary("Temporary Resident"),
-    Visitor("Visitor / Tourist"),
-    Other("Other")
+enum class UserTypes(val displayName: String) {
+    Resident("Resident"),
+    Tourist("Tourist")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResidencyDropdownField(
-    selectedStatus: ResidencyStatus?,
-    onStatusSelected: (ResidencyStatus) -> Unit,
+    selectedStatus: UserTypes?,
+    onStatusSelected: (UserTypes) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -378,7 +434,7 @@ fun ResidencyDropdownField(
             value = selectedStatus?.displayName ?: "",
             onValueChange = { },
             readOnly = true,
-            label = { Text("Residency Status") },
+            label = { Text("User Type") },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },
@@ -391,7 +447,7 @@ fun ResidencyDropdownField(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            ResidencyStatus.entries.forEach { status ->
+            UserTypes.entries.forEach { status ->
                 DropdownMenuItem(
                     text = { Text(status.displayName) },
                     onClick = {

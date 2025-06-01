@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.layout.ContentScale
@@ -24,17 +26,64 @@ import androidx.constraintlayout.compose.Dimension
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.swakopmundapp.R
+import com.example.swakopmundapp.core.dto.LoginDto
+import com.example.swakopmundapp.repository.transaction.TransactionHandler
 import com.example.swakopmundapp.ui.components.AnnotatedClickableText
 import com.example.swakopmundapp.ui.components.ClickablePart
 import com.example.swakopmundapp.ui.components.HeadingTextComponent
-import com.example.swakopmundapp.ui.components.MyTextFieldComponent
 import com.example.swakopmundapp.ui.components.NormalTextComponent
-import com.example.swakopmundapp.ui.components.PasswordTextFieldComponent
 import com.example.swakopmundapp.ui.components.WhiteSheet
 import com.example.swakopmundapp.ui.navigation.Screen
+import com.example.swakopmundapp.viewModel.AuthenticationViewModel
+import org.koin.androidx.compose.koinViewModel
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
+import androidx.lifecycle.LiveData
+import com.example.swakopmundapp.ui.components.LoginTextFieldComponent
+import com.example.swakopmundapp.ui.components.PasswordTextFieldComponent
 
 @Composable
-fun LoginScreen(navController: NavHostController) {
+fun LoginScreen(
+    navController: NavHostController,
+    viewModel: AuthenticationViewModel = koinViewModel()
+) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf("") }
+    var loginResult by remember { mutableStateOf<LiveData<TransactionHandler<out Any?>>?>(null) }
+
+    loginResult?.observeAsState()?.value?.let { result ->
+        when (result) {
+            is TransactionHandler.Started -> {
+                isLoading = true
+            }
+            is TransactionHandler.SuccessfullyCompleted -> {
+                isLoading = false
+                navController.navigate(Screen.Home.route) {
+                    popUpTo(Screen.Login.route) { inclusive = true }
+                }
+
+                email = ""
+                password = ""
+                loginResult = null
+            }
+            is TransactionHandler.PoorConnection -> {
+                isLoading = false
+                errorMessage = "Slow internet connection"
+            }
+            is TransactionHandler.Error -> {
+                isLoading = false
+                errorMessage = result.error?.localizedMessage ?: "Something went wrong"
+            }
+            else -> {
+                isLoading = false
+                errorMessage = (result.data ?: "Something went wrong") as? String ?: "Error"
+            }
+        }
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
 
         // Background Image
@@ -76,23 +125,61 @@ fun LoginScreen(navController: NavHostController) {
                 HeadingTextComponent(value = stringResource(id = R.string.login))
                 NormalTextComponent(value = stringResource(id = R.string.welcome))
 
-                MyTextFieldComponent(labelValue = stringResource(id = R.string.email))
-                PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password))
+                // Email Field
+                LoginTextFieldComponent(
+                    labelValue = stringResource(id = R.string.email),
+                    value = email,
+                    onValueChange = {
+                        email = it
+                        errorMessage = ""
+                    }
+                )
+
+                // Password Field
+                PasswordTextFieldComponent(
+                    labelValue = stringResource(id = R.string.password),
+                    value = password,
+                    onValueChange = {
+                        password = it
+                        errorMessage = ""
+                    }
+                )
 
                 Spacer(modifier = Modifier.height(10.dp))
 
                 // Log In Button
                 Button(
                     onClick = {
-                        navController.navigate(Screen.Home.route) {
-                            popUpTo(Screen.Login.route) { inclusive = true }
+                        if (email.isNotBlank() && password.isNotBlank()) {
+                            isLoading = true
+                            errorMessage = ""
+
+                            val loginDto = LoginDto(
+                                username = email,
+                                password = password
+                            )
+
+                            loginResult = viewModel.login(loginDto)
                         }
                     },
+                    enabled = !isLoading && email.isNotBlank() && password.isNotBlank(),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 24.dp, vertical = 12.dp)
                 ) {
-                    Text(text = stringResource(id = R.string.log_in))
+                    if (isLoading) {
+                        Text(text = "Logging in...")
+                    } else {
+                        Text(text = stringResource(id = R.string.log_in))
+                    }
+                }
+
+                if (errorMessage.isNotEmpty()) {
+                    Text(
+                        text = errorMessage,
+                        color = androidx.compose.material3.MaterialTheme.colorScheme.error,
+                        modifier = Modifier.padding(horizontal = 24.dp)
+                    )
                 }
 
                 Spacer(modifier = Modifier.height(10.dp))

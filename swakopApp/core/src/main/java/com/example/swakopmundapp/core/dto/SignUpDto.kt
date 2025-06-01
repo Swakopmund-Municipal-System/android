@@ -18,7 +18,7 @@ data class SignUpDto(
     var lastName: String,
 
     @SerializedName("home_address")
-    var homeAddress: String,
+    var homeAddress: String? = null,
 
     @SerializedName("user_type_names")
     var userType: List<String>?

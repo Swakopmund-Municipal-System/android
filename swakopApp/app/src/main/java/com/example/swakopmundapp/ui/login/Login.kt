@@ -40,8 +40,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
-import com.example.swakopmundapp.ui.components.LoginPasswordTextFieldComponent
 import com.example.swakopmundapp.ui.components.LoginTextFieldComponent
+import com.example.swakopmundapp.ui.components.PasswordTextFieldComponent
 
 @Composable
 fun LoginScreen(
@@ -136,7 +136,7 @@ fun LoginScreen(
                 )
 
                 // Password Field
-                LoginPasswordTextFieldComponent(
+                PasswordTextFieldComponent(
                     labelValue = stringResource(id = R.string.password),
                     value = password,
                     onValueChange = {

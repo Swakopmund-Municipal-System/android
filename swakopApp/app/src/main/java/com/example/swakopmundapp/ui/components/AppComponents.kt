@@ -87,35 +87,6 @@ fun LoginTextFieldComponent(
 }
 
 @Composable
-fun LoginPasswordTextFieldComponent(
-    labelValue: String,
-    value: String = "",
-    onValueChange: (String) -> Unit = {},
-    modifier: Modifier = Modifier
-) {
-    var passwordVisible by remember { mutableStateOf(false) }
-
-    OutlinedTextField(
-        value = value,
-        onValueChange = onValueChange,
-        label = { Text(text = labelValue) },
-        modifier = modifier.fillMaxWidth(),
-        singleLine = true,
-        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        trailingIcon = {
-            val image = if (passwordVisible)
-                Icons.Filled.Visibility
-            else Icons.Filled.VisibilityOff
-
-            IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                Icon(imageVector = image, contentDescription = null)
-            }
-        }
-    )
-}
-
-@Composable
 fun LogoutItem(
     label: String,
     icon: ImageVector,
@@ -145,7 +116,12 @@ fun LogoutItem(
 }
 
 @Composable
-fun ProfileItem(label: String, icon: ImageVector, iconTint: Color = Color.Black, onClick: () -> Unit) {
+fun ProfileItem(
+    label: String,
+    icon: ImageVector,
+    iconTint: Color = Color.Black,
+    onClick: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -161,7 +137,7 @@ fun ProfileItem(label: String, icon: ImageVector, iconTint: Color = Color.Black,
 
 
 @Composable
-fun NormalTextComponent(value:String) {
+fun NormalTextComponent(value: String) {
     Text(
         text = value,
         modifier = Modifier
@@ -171,14 +147,13 @@ fun NormalTextComponent(value:String) {
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
             fontStyle = FontStyle.Normal
-        )
-        , color = Color.Black,
+        ), color = Color.Black,
         textAlign = TextAlign.Center
     )
 }
 
 @Composable
-fun HeadingTextComponent(value:String) {
+fun HeadingTextComponent(value: String) {
     Text(
         text = value,
         modifier = Modifier
@@ -188,20 +163,23 @@ fun HeadingTextComponent(value:String) {
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal
-        )
-        , color = Color.Black,
+        ), color = Color.Black,
         textAlign = TextAlign.Center
     )
 }
 
 @Composable
-fun MyTextFieldComponent(labelValue: String){
+fun MyTextFieldComponent(
+    labelValue: String,
+    value: String = "",
+    onValueChange: (String) -> Unit = {}
+) {
     val textValue = remember {
         mutableStateOf("")
     }
 
     OutlinedTextField(
-        label = {Text(text = labelValue)},
+        label = { Text(text = labelValue) },
         keyboardOptions = KeyboardOptions.Default,
         value = textValue.value,
         onValueChange = {
@@ -211,39 +189,31 @@ fun MyTextFieldComponent(labelValue: String){
 }
 
 @Composable
-fun PasswordTextFieldComponent(labelValue: String){
-    val password = remember {
-        mutableStateOf("")
-    }
-
-    val passwordVisible = remember {
-        mutableStateOf(false)
-    }
+fun PasswordTextFieldComponent(
+    labelValue: String,
+    value: String = "",
+    onValueChange: (String) -> Unit = {},
+    modifier: Modifier = Modifier
+) {
+    var passwordVisible by remember { mutableStateOf(false) }
 
     OutlinedTextField(
-        label = {Text(text = labelValue)},
+        value = value,
+        onValueChange = onValueChange,
+        label = { Text(text = labelValue) },
+        modifier = modifier.fillMaxWidth(),
+        singleLine = true,
+        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
-        value = password.value,
-        onValueChange = {
-            password.value = it
-        },
         trailingIcon = {
-            val iconImage = if(passwordVisible.value) {
+            val image = if (passwordVisible)
                 Icons.Filled.Visibility
-            } else{
-                Icons.Filled.VisibilityOff
-            }
-            var description = if(passwordVisible.value){
-                stringResource(id = R.string.hide_password)
-            } else {
-                stringResource(id = R.string.show_password)
-            }
+            else Icons.Filled.VisibilityOff
 
-            IconButton(onClick = { passwordVisible.value = !passwordVisible.value }) {
-                Icon(imageVector = iconImage, contentDescription = description)
+            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                Icon(imageVector = image, contentDescription = null)
             }
-        },
-        visualTransformation = if(passwordVisible.value) VisualTransformation.None else PasswordVisualTransformation()
+        }
     )
 }
 
@@ -251,9 +221,11 @@ fun PasswordTextFieldComponent(labelValue: String){
 fun ButtonComponent(
     value: String,
     onClick: () -> Unit = {},
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
+        enabled = enabled,
         shape = RoundedCornerShape(10.dp),
         modifier = Modifier
             .widthIn(200.dp)
@@ -267,10 +239,17 @@ fun ButtonComponent(
                 .heightIn(48.dp)
                 .background(
                     brush = Brush.verticalGradient(
-                        colors = listOf(
-                            colorResource(id = R.color.blue1),
-                            Color.Black
-                        )
+                        colors = if (enabled) {
+                            listOf(
+                                colorResource(id = R.color.blue1),
+                                Color.Black
+                            )
+                        } else {
+                            listOf(
+                                Color.Gray.copy(alpha = 0.6f),
+                                Color.DarkGray.copy(alpha = 0.6f)
+                            )
+                        }
                     )
                 ),
             contentAlignment = Alignment.Center
@@ -278,7 +257,8 @@ fun ButtonComponent(
             Text(
                 text = value,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.Bold
+                fontWeight = FontWeight.Bold,
+                color = if (enabled) Color.White else Color.White.copy(alpha = 0.6f)
             )
         }
     }
@@ -298,7 +278,7 @@ fun WhiteSheet(
             .fillMaxHeight(heightFraction),
         shape = RoundedCornerShape(
             topStart = cornerRadius,
-            topEnd   = cornerRadius
+            topEnd = cornerRadius
         ),
         color = backgroundColor,
         tonalElevation = 4.dp,
@@ -380,7 +360,12 @@ fun MenuTile(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(
-                        Brush.verticalGradient(listOf(colorResource(id = R.color.blue1), Color.Black))
+                        Brush.verticalGradient(
+                            listOf(
+                                colorResource(id = R.color.blue1),
+                                Color.Black
+                            )
+                        )
                     ),
                 contentAlignment = Alignment.Center
             ) {
@@ -398,17 +383,17 @@ fun MenuTile(
 }
 
 
-
 @Composable
 fun BottomNavBar(
-    items: List<Pair<Int,String>>,
+    items: List<Pair<Int, String>>,
     selectedIndex: Int,
-    onItemSelected: (Int)->Unit,
+    onItemSelected: (Int) -> Unit,
     iconSize: Dp = 32.dp
 ) {
     NavigationBar(
         containerColor = Color.White,
-        tonalElevation = 8.dp) {
+        tonalElevation = 8.dp
+    ) {
         items.forEachIndexed { idx, (icon, label) ->
             NavigationBarItem(
                 icon = {
@@ -426,19 +411,16 @@ fun BottomNavBar(
     }
 }
 
-enum class ResidencyStatus(val displayName: String) {
-    Citizen("Citizen or Registered Resident"),
-    Permanent("Permanent Resident"),
-    Temporary("Temporary Resident"),
-    Visitor("Visitor / Tourist"),
-    Other("Other")
+enum class UserTypes(val displayName: String) {
+    Resident("Resident"),
+    Tourist("Tourist")
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ResidencyDropdownField(
-    selectedStatus: ResidencyStatus?,
-    onStatusSelected: (ResidencyStatus) -> Unit,
+    selectedStatus: UserTypes?,
+    onStatusSelected: (UserTypes) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -452,7 +434,7 @@ fun ResidencyDropdownField(
             value = selectedStatus?.displayName ?: "",
             onValueChange = { },
             readOnly = true,
-            label = { Text("Residency Status") },
+            label = { Text("User Type") },
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },
@@ -465,7 +447,7 @@ fun ResidencyDropdownField(
             expanded = expanded,
             onDismissRequest = { expanded = false }
         ) {
-            ResidencyStatus.entries.forEach { status ->
+            UserTypes.entries.forEach { status ->
                 DropdownMenuItem(
                     text = { Text(status.displayName) },
                     onClick = {

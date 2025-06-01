@@ -2,17 +2,15 @@ package com.example.swakopmundapp.di
 
 import com.example.swakopmundapp.data.network.EnvironmentalApiService
 import com.example.swakopmundapp.data.network.OpenExchangeRatesApi
-import com.example.swakopmundapp.data.network.WeatherApiService // <-- Add this import
+import com.example.swakopmundapp.data.network.WeatherApiService
 import com.example.swakopmundapp.data.repository.EnvironmentalReportRepository
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.core.qualifier.named // <-- Add this for named instances if you go that route
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-
-// const val OPEN_EXCHANGE_RATES_RETROFIT = "OpenExchangeRatesRetrofit"
-// const val WEATHER_API_RETROFIT = "WeatherApiRetrofit"
 
 val networkModule = module {
 
@@ -23,10 +21,34 @@ val networkModule = module {
         }
     }
 
-    // OkHttpClient (shared)
+    // Authentication Interceptor for Environmental API
+    single(named("AuthInterceptor")) {
+        Interceptor { chain ->
+            val original = chain.request()
+            val requestBuilder = original.newBuilder()
+                .header("Accept", "application/json")
+                .header("Content-Type", "application/json")
+            // Add your API key or authentication token here
+            // .header("Authorization", "Bearer YOUR_API_KEY")
+            // .header("X-API-Key", "YOUR_API_KEY")
+
+            val request = requestBuilder.build()
+            chain.proceed(request)
+        }
+    }
+
+    // Regular OkHttpClient (shared for currency and weather)
     single {
         OkHttpClient.Builder()
             .addInterceptor(get<HttpLoggingInterceptor>())
+            .build()
+    }
+
+    // OkHttpClient with Auth for Environmental API
+    single(named("AuthenticatedClient")) {
+        OkHttpClient.Builder()
+            .addInterceptor(get<HttpLoggingInterceptor>())
+            .addInterceptor(get<Interceptor>(named("AuthInterceptor")))
             .build()
     }
 
@@ -34,13 +56,12 @@ val networkModule = module {
     single<Retrofit>(named("OpenExchangeRatesRetrofit")) {
         Retrofit.Builder()
             .baseUrl("https://openexchangerates.org/api/")
-            .client(get<OkHttpClient>()) // Use the shared OkHttpClient
+            .client(get<OkHttpClient>())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     single<OpenExchangeRatesApi> {
-        // Get the named Retrofit instance
         get<Retrofit>(named("OpenExchangeRatesRetrofit")).create(OpenExchangeRatesApi::class.java)
     }
 
@@ -48,20 +69,20 @@ val networkModule = module {
     single<Retrofit>(named("WeatherApiRetrofit")) {
         Retrofit.Builder()
             .baseUrl("http://196.216.167.82/api/")
-            .client(get<OkHttpClient>())      // Use the shared OkHttpClient
+            .client(get<OkHttpClient>())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
     single<WeatherApiService> {
-        // Get the named Retrofit instance for Weather
         get<Retrofit>(named("WeatherApiRetrofit")).create(WeatherApiService::class.java)
     }
 
+    // --- Environmental Report API Setup ---
     single<Retrofit>(named("EnvironmentalApiRetrofit")) {
         Retrofit.Builder()
-            .baseUrl("http://196.216.167.82/") // Use your base URL
-            .client(get<OkHttpClient>())
+            .baseUrl("http://196.216.167.82/") // Base URL for environmental API
+            .client(get<OkHttpClient>(named("AuthenticatedClient"))) // Use authenticated client
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -70,6 +91,7 @@ val networkModule = module {
         get<Retrofit>(named("EnvironmentalApiRetrofit")).create(EnvironmentalApiService::class.java)
     }
 
+    // Environmental Report Repository
     single<EnvironmentalReportRepository> {
         EnvironmentalReportRepository(get())
     }

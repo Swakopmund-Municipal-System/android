@@ -38,7 +38,7 @@ fun ReportAnIssueScreen(
 @Composable
 private fun ReportAnIssueScreenContent(
     onBack: () -> Unit,
-    onSubmitReport: suspend (String, EnvironmentalReportRequest) -> Result<String>
+    onSubmitReport: suspend (String, EnvironmentalReportRequest) -> Result<String> = { _,_ -> Result.failure(Exception("Not implemented"))}
 ) {
     var title by remember { mutableStateOf("") }
     var details by remember { mutableStateOf("") }

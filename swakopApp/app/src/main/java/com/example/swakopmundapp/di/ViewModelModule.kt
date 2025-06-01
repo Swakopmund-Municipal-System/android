@@ -8,10 +8,11 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     // Currency ViewModel
-    viewModel { ExchangeViewModel(get()) } // Koin resolves OpenExchangeRatesApi
+    viewModel { ExchangeViewModel(get()) }
 
     // Weather ViewModel
     viewModel { WeatherViewModel(get()) }
 
-    viewModel {ReportIssueViewModel(get())}
+    // Environmental Report ViewModel
+    viewModel { ReportIssueViewModel(get()) }
 }

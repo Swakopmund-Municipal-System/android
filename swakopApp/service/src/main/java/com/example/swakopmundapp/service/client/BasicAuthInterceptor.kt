@@ -31,10 +31,13 @@ internal class BasicAuthInterceptor: Interceptor {
         // For other endpoints, add auth headers
         val requestBuilder = request.newBuilder()
 
-        request = request.newBuilder()
-            .header("Authorization", "Token $token")
-            .header("ApiKey", API_KEY)
-            .build()
+        if (token.isNotEmpty()) {
+            requestBuilder.header("Authorization", "Token $token")
+        }
+
+        if (API_KEY.isNotEmpty()) {
+            requestBuilder.header("ApiKey", API_KEY)
+        }
 
         request = requestBuilder.build()
         return chain.proceed(request)

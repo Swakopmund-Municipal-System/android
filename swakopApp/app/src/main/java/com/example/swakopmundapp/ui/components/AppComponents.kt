@@ -40,6 +40,7 @@ import com.example.swakopmundapp.R
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
@@ -61,6 +62,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -112,6 +114,51 @@ fun LoginPasswordTextFieldComponent(
         }
     )
 }
+
+@Composable
+fun LogoutItem(
+    label: String,
+    icon: ImageVector,
+    iconTint: Color = Color.Black,
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(enabled = enabled) { onClick() }
+            .padding(vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            icon,
+            contentDescription = null,
+            tint = if (enabled) iconTint else iconTint.copy(alpha = 0.5f)
+        )
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(
+            text = label,
+            fontSize = 16.sp,
+            color = if (enabled) Color.Black else Color.Gray
+        )
+    }
+}
+
+@Composable
+fun ProfileItem(label: String, icon: ImageVector, iconTint: Color = Color.Black, onClick: () -> Unit) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable { onClick() }
+            .padding(vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(icon, contentDescription = null, tint = iconTint)
+        Spacer(modifier = Modifier.width(12.dp))
+        Text(text = label, fontSize = 16.sp)
+    }
+}
+
 
 @Composable
 fun NormalTextComponent(value:String) {

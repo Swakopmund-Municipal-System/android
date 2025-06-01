@@ -49,6 +49,6 @@ data class ServiceResponse<T>(
     val failed: Boolean
         get() = this.status == Status.Failure
 
-    val body: T
-        get() = this.data!!.body()!!
+    val body: T?
+        get() = this.data?.body()
 }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 
 inline fun <T : ServiceResponse<N>, N> fetchSaveTransaction(
     crossinline fetchFromApi: suspend () -> T,
-    crossinline saveToDatabase: suspend (T) -> Unit
+    crossinline save: suspend (T) -> Unit
 ) = flow {
 
     emit(TransactionHandler.Started("true"))
@@ -17,7 +17,7 @@ inline fun <T : ServiceResponse<N>, N> fetchSaveTransaction(
     when (response.status) {
 
         is Status.Success ->{
-            saveToDatabase(response)
+            save(response)
             delay(2_000)
             emit(TransactionHandler.SuccessfullyCompleted("true"))
         }

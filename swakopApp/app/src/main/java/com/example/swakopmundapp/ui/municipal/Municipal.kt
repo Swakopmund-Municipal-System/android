@@ -51,7 +51,7 @@ fun MunicipalScreen(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(100.dp)
+                    .height(65.dp)
                     .background(colorResource(id = R.color.bluebar)),
                 contentAlignment = Alignment.Center
             ) {
@@ -59,7 +59,7 @@ fun MunicipalScreen(
                     onClick = onBack,
                     modifier = Modifier
                         .align(Alignment.CenterStart)
-                        .padding(start = 16.dp)
+                        .padding(start = 10.dp)
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,

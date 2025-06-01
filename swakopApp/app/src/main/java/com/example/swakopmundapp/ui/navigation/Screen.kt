@@ -36,4 +36,6 @@ sealed class Screen(val route: String) {
     }
 
     // Add others as needed
+    //municipal Page
+    object ReportAnIssue : Screen("report_an_issue")
 }

@@ -38,6 +38,7 @@ import com.example.swakopmundapp.ui.wheretostay.WhereToStayScreen
 import com.example.swakopmundapp.ui.community.EmergencyContactsScreen
 import com.example.swakopmundapp.ui.community.EventsScreen
 import com.example.swakopmundapp.ui.community.EventDetailScreen
+import com.example.swakopmundapp.ui.municipal.ReportAnIssueScreen
 import com.example.swakopmundapp.ui.signup.SignUpScreen
 
 @SuppressLint("ViewModelConstructorInComposable")
@@ -60,6 +61,9 @@ fun AppNavGraph(navController: NavHostController) {
                     when (option) {
                         is MunicipalOption.BankDetails -> {
                             navController.navigate(Screen.BankDetails.route)
+                        }
+                        is MunicipalOption.ReportAnIssue -> {
+                            navController.navigate(Screen.ReportAnIssue.route)
                         }
                         // Add more when ready
                         else -> {}
@@ -145,7 +149,14 @@ fun AppNavGraph(navController: NavHostController) {
             EventsScreen(navController)
         }
         composable(Screen.EventDetail.route) {
-            EventDetailScreen(navController) }
+            EventDetailScreen(navController)
+        }
+
+        composable(Screen.ReportAnIssue.route) {
+            ReportAnIssueScreen(
+                navController,
+                onBack = { navController.popBackStack() })
+        }
 
      composable(
                 route = Screen.EventDetail.route,

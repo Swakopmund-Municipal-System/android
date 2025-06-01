@@ -2,8 +2,10 @@ package com.example.swakopmundapp.di
 
 import com.example.swakopmundapp.data.network.EnvironmentalApiService
 import com.example.swakopmundapp.data.network.OpenExchangeRatesApi
+import com.example.swakopmundapp.data.network.TourismApiService
 import com.example.swakopmundapp.data.network.WeatherApiService
 import com.example.swakopmundapp.data.repository.EnvironmentalReportRepository
+import com.example.swakopmundapp.data.repository.TourismRepository
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -94,5 +96,23 @@ val networkModule = module {
     // Environmental Report Repository
     single<EnvironmentalReportRepository> {
         EnvironmentalReportRepository(get())
+    }
+
+    // --- Tourism API Setup ---
+    single<Retrofit>(named("TourismApiRetrofit")) {
+        Retrofit.Builder()
+            .baseUrl("http://196.216.167.82/") // Same base URL as your environmental API
+            .client(get<OkHttpClient>(named("AuthenticatedClient"))) // Using authenticated client
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    single<TourismApiService> {
+        get<Retrofit>(named("TourismApiRetrofit")).create(TourismApiService::class.java)
+    }
+
+    // Tourism Repository
+    single<TourismRepository> {
+        TourismRepository(get())
     }
 }

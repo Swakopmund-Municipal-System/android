@@ -21,6 +21,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -41,6 +43,10 @@ fun TourismGridScreen(
     viewModel: TourismViewModel,
     onBack: () -> Unit = {}
 ) {
+    val places by viewModel.places.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
+    val error by viewModel.error.collectAsState()
+
     Box(modifier = Modifier.fillMaxSize()){
         Column(modifier = Modifier.fillMaxSize()) {
             Box(
@@ -70,24 +76,36 @@ fun TourismGridScreen(
                     modifier = Modifier.align(Alignment.Center)
                 )
             }
-            LazyVerticalGrid(columns = GridCells.Fixed(2), contentPadding = PaddingValues(8.dp)) {
-                items(viewModel.activities) { activity ->
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                contentPadding = PaddingValues(8.dp)
+            ) {
+                items(places) { places ->
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier
                             .padding(8.dp)
                             .clickable {
-                                navController.navigate("tourism_detail/${activity.name}")
+                                navController.navigate("tourism_detail/${places.name}")
                             }
                     ) {
-                        Image(
-                            painter = painterResource(id = activity.imageResId),
-                            contentDescription = activity.name,
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.size(150.dp)
-                        )
+//                        Image(
+//                            painter = painterResource(id = activity.imageResId),
+//                            contentDescription = activity.name,
+//                            contentScale = ContentScale.Crop,
+//                            modifier = Modifier.size(150.dp)
+//                        )
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = activity.name)
+                        Text(
+                            text = places.name,
+                            style = MaterialTheme.typography.titleMedium,
+                            maxLines = 2
+                        )
+                        Text(
+                            text = places.location,
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
                     }
                 }
             }

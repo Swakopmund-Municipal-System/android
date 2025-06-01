@@ -1,5 +1,6 @@
 package com.example.swakopmundapp.di
 
+import com.example.swakopmundapp.data.model.tourism.TourismViewModel
 import com.example.swakopmundapp.ui.currency.ExchangeViewModel
 import com.example.swakopmundapp.ui.municipal.ReportIssueViewModel
 import com.example.swakopmundapp.ui.weather.WeatherViewModel
@@ -15,4 +16,6 @@ val viewModelModule = module {
 
     // Environmental Report ViewModel
     viewModel { ReportIssueViewModel(get()) }
+
+    viewModel { TourismViewModel(get()) }
 }

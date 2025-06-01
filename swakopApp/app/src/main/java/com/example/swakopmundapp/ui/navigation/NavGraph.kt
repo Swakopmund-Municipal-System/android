@@ -40,6 +40,7 @@ import com.example.swakopmundapp.ui.community.EventsScreen
 import com.example.swakopmundapp.ui.community.EventDetailScreen
 import com.example.swakopmundapp.ui.municipal.ReportAnIssueScreen
 import com.example.swakopmundapp.ui.signup.SignUpScreen
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
@@ -79,7 +80,7 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         composable(Screen.TourismGrid.route) {
-            val viewModel = TourismViewModel()
+            val viewModel: TourismViewModel = koinViewModel()
             TourismGridScreen(
                 navController,
                 viewModel,
@@ -98,8 +99,13 @@ fun AppNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument("activityName") { type = NavType.StringType })
         ) { backStackEntry ->
             val activityName = backStackEntry.arguments?.getString("activityName") ?: ""
-            val viewModel = TourismViewModel()
-            TourismDetailScreen(navController, activityName, viewModel)
+            val viewModel: TourismViewModel = koinViewModel()
+            TourismDetailScreen(
+                navController,
+                activityName,
+                viewModel,
+                onBack = {navController.popBackStack()}
+            )
         }
 
         

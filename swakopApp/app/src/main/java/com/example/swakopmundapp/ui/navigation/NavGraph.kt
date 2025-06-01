@@ -38,7 +38,9 @@ import com.example.swakopmundapp.ui.wheretostay.WhereToStayScreen
 import com.example.swakopmundapp.ui.community.EmergencyContactsScreen
 import com.example.swakopmundapp.ui.community.EventsScreen
 import com.example.swakopmundapp.ui.community.EventDetailScreen
+import com.example.swakopmundapp.ui.municipal.ReportAnIssueScreen
 import com.example.swakopmundapp.ui.signup.SignUpScreen
+import org.koin.androidx.compose.koinViewModel
 
 @SuppressLint("ViewModelConstructorInComposable")
 @Composable
@@ -61,6 +63,9 @@ fun AppNavGraph(navController: NavHostController) {
                         is MunicipalOption.BankDetails -> {
                             navController.navigate(Screen.BankDetails.route)
                         }
+                        is MunicipalOption.ReportAnIssue -> {
+                            navController.navigate(Screen.ReportAnIssue.route)
+                        }
                         // Add more when ready
                         else -> {}
                     }
@@ -75,7 +80,7 @@ fun AppNavGraph(navController: NavHostController) {
         }
 
         composable(Screen.TourismGrid.route) {
-            val viewModel = TourismViewModel()
+            val viewModel: TourismViewModel = koinViewModel()
             TourismGridScreen(
                 navController,
                 viewModel,
@@ -94,8 +99,13 @@ fun AppNavGraph(navController: NavHostController) {
             arguments = listOf(navArgument("activityName") { type = NavType.StringType })
         ) { backStackEntry ->
             val activityName = backStackEntry.arguments?.getString("activityName") ?: ""
-            val viewModel = TourismViewModel()
-            TourismDetailScreen(navController, activityName, viewModel)
+            val viewModel: TourismViewModel = koinViewModel()
+            TourismDetailScreen(
+                navController,
+                activityName,
+                viewModel,
+                onBack = {navController.popBackStack()}
+            )
         }
 
         
@@ -145,7 +155,14 @@ fun AppNavGraph(navController: NavHostController) {
             EventsScreen(navController)
         }
         composable(Screen.EventDetail.route) {
-            EventDetailScreen(navController) }
+            EventDetailScreen(navController)
+        }
+
+        composable(Screen.ReportAnIssue.route) {
+            ReportAnIssueScreen(
+                navController,
+                onBack = { navController.popBackStack() })
+        }
 
      composable(
                 route = Screen.EventDetail.route,

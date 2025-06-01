@@ -1,19 +1,50 @@
 package com.example.swakopmundapp.data.model.tourism
 
 import androidx.lifecycle.ViewModel
-import com.example.swakopmundapp.R
+import androidx.lifecycle.viewModelScope
+import com.example.swakopmundapp.data.repository.TourismRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
 
-class TourismViewModel : ViewModel() {
-    val activities = listOf(
-        TourismActivity("Boat Cruise", R.drawable.boat_cruise, "Enjoy a relaxing cruise."),
-        TourismActivity("Parachuting", R.drawable.parachuting, "Thrilling aerial view!"),
-        TourismActivity("Quad Biking", R.drawable.quad_biking, "Adventure in the dunes."),
-        TourismActivity("Camel Riding", R.drawable.camel_riding, "Desert experience."),
-        TourismActivity("Aquarium Visit", R.drawable.aquarium, "See marine life."),
-        TourismActivity("Sky Diving", R.drawable.sky_diving, "Freefall excitement!")
-    )
+class TourismViewModel(
+    private val repository: TourismRepository
+) : ViewModel() {
 
-    fun getActivitiesByType(type: String): List<TourismActivity> {
-        return activities.filter { it.name.contains(type, ignoreCase = true) }
+    private val _places = MutableStateFlow<List<TourismActivity>>(emptyList())
+    val places: StateFlow<List<TourismActivity>> = _places.asStateFlow()
+
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading: StateFlow<Boolean> = _isLoading.asStateFlow()
+
+    private val _error = MutableStateFlow<String?>(null)
+    val error: StateFlow<String?> = _error.asStateFlow()
+
+    init {
+        loadPlaces()
+    }
+
+    private fun loadPlaces() {
+        viewModelScope.launch {
+            _isLoading.value = true
+            _error.value = null
+            try {
+                val fetchedPlaces = repository.getPlaces()
+                _places.value = fetchedPlaces
+            } catch (e: Exception) {
+                _error.value = e.message ?: "Unknown error occurred"
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun refreshPlaces() {
+        loadPlaces()
+    }
+
+    fun getPlaceByName(name: String): TourismActivity? {
+        return _places.value.find { it.name == name }
     }
 }

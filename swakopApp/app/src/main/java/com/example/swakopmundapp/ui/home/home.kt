@@ -37,7 +37,17 @@ data class MenuItem(
     val route: String
 )
 
-@OptIn(ExperimentalMaterial3Api::class)
+
+private val SlideshowImages = listOf(
+    R.drawable.background2, 
+    R.drawable.slideshow_image_2, 
+    R.drawable.slideshow_image_3,
+    R.drawable.slideshow_image_4
+
+)
+
+
+
 @Composable
 fun HomeScreen(navController: NavHostController) {
     val menuItems = listOf(
@@ -103,8 +113,8 @@ fun HomeScreen(navController: NavHostController) {
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-            // Image carousel at the top
-            ImageCarousel(imageResId = R.drawable.swakopmund_beach)
+            
+            ImageCarousel(images = SlideshowImages) 
 
             // Grid of menu items
             LazyVerticalGrid(

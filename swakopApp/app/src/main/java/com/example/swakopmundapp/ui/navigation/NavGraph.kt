@@ -1,7 +1,8 @@
 package com.example.swakopmundapp.ui.navigation
 
 import FavouriteMemoriesScreen
-import TourismGridScreen
+//import TourismGridScreen
+import com.example.swakopmundapp.ui.tourism.TourismGridScreen
 import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

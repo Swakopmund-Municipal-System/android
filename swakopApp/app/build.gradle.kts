@@ -1,3 +1,18 @@
+//import androidx.compose.ui.layout.layout
+//import androidx.datastore.core.use
+//import androidx.glance.appwidget.compose
+//import androidx.navigation.compose.navigation
+import java.util.Properties
+import java.nio.charset.StandardCharsets
+
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.reader(StandardCharsets.UTF_8).use { reader ->
+        localProperties.load(reader)
+    }
+}
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -16,6 +31,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -24,6 +40,28 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
+            )
+            buildConfigField(
+                "String",
+                "SHARED_API_KEY",
+                "\"${localProperties.getProperty("SHARED_API_KEY", "YOUR_DEFAULT_KEY_IF_NOT_FOUND")}\""
+            )
+            buildConfigField(
+                "String",
+                "SHARED_AUTH_TOKEN",
+                "\"${localProperties.getProperty("SHARED_AUTH_TOKEN", "YOUR_DEFAULT_TOKEN_IF_NOT_FOUND")}\""
+            )
+        }
+        debug {
+            buildConfigField(
+                "String",
+                "SHARED_API_KEY",
+                "\"${localProperties.getProperty("SHARED_API_KEY", "YOUR_DEFAULT_KEY_IF_NOT_FOUND_DEBUG")}\""
+            )
+            buildConfigField(
+                "String",
+                "SHARED_AUTH_TOKEN",
+                "\"${localProperties.getProperty("SHARED_AUTH_TOKEN", "YOUR_DEFAULT_TOKEN_IF_NOT_FOUND_DEBUG")}\""
             )
         }
     }
@@ -36,6 +74,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

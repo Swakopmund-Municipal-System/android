@@ -8,13 +8,10 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val viewModelModule = module {
-    // Currency ViewModel
     viewModel { ExchangeViewModel(get()) }
 
-    // Weather ViewModel
     viewModel { WeatherViewModel(get()) }
 
-    // Environmental Report ViewModel
     viewModel { ReportIssueViewModel(get()) }
 
     viewModel { TourismViewModel(get()) }

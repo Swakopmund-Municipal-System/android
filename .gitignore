@@ -35,3 +35,11 @@ swakopApp/service/build/intermediates/incremental/packageDebugAssets/merger.xml
 swakopApp/service/build/kotlin/compileDebugKotlin/cacheable/last-build.bin
 swakopApp/service/build/kotlin/compileDebugKotlin/local-state/build-history.bin
 swakopApp/service/build/outputs/logs/manifest-merger-debug-report.txt
+swakopApp/service/build/intermediates/incremental/debug/packageDebugResources/compile-file-map.properties
+swakopApp/service/build/intermediates/incremental/debug/packageDebugResources/merger.xml
+swakopApp/service/build/intermediates/incremental/mergeDebugJniLibFolders/merger.xml
+swakopApp/service/build/intermediates/incremental/mergeDebugShaders/merger.xml
+swakopApp/service/build/intermediates/incremental/packageDebugAssets/merger.xml
+swakopApp/service/build/kotlin/compileDebugKotlin/cacheable/last-build.bin
+swakopApp/service/build/kotlin/compileDebugKotlin/local-state/build-history.bin
+swakopApp/service/build/outputs/logs/manifest-merger-debug-report.txt

@@ -116,6 +116,7 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation("com.mapbox.maps:android:11.12.2")
     implementation("com.mapbox.extension:maps-compose:11.12.2")
+    implementation(libs.androidx.media3.exoplayer)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

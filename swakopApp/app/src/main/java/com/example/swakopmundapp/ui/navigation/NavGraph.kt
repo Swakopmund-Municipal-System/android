@@ -40,6 +40,8 @@ import com.example.swakopmundapp.ui.community.EmergencyContactsScreen
 import com.example.swakopmundapp.ui.community.EventsScreen
 import com.example.swakopmundapp.ui.community.EventDetailScreen
 import com.example.swakopmundapp.ui.downloads.DownloadsScreen
+import com.example.swakopmundapp.ui.procurement.ProcurementScreen
+
 import com.example.swakopmundapp.ui.municipal.ReportAnIssueScreen
 import com.example.swakopmundapp.ui.signup.SignUpScreen
 import org.koin.androidx.compose.koinViewModel
@@ -67,6 +69,9 @@ fun AppNavGraph(navController: NavHostController) {
                         }
                         is MunicipalOption.Downloads -> {
                             navController.navigate(Screen.Downloads.route)
+                        }
+                        is MunicipalOption.Procurement -> {
+                            navController.navigate(Screen.Procurement.route)
                         }
                         is MunicipalOption.ReportAnIssue -> {
                             navController.navigate(Screen.ReportAnIssue.route)
@@ -165,6 +170,12 @@ fun AppNavGraph(navController: NavHostController) {
 
         composable(Screen.Downloads.route) {
             DownloadsScreen(
+                onBack = { navController.popBackStack() }
+            )
+        }
+
+        composable(Screen.Procurement.route) {
+            ProcurementScreen(
                 onBack = { navController.popBackStack() }
             )
         }

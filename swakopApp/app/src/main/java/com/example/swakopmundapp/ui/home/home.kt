@@ -89,7 +89,7 @@ fun DiscoverNowCard(
     Box(
         modifier = modifier
             .width(150.dp)
-            .height(180.dp)
+            .height(130.dp)
             .clip(RoundedCornerShape(8.dp))
             .clickable(onClick = onClick)
     ) {
@@ -192,8 +192,9 @@ fun HomeScreen(navController: NavHostController) {
             ImageCarousel(
                 images = SlideshowImages,
                 modifier = Modifier
-                    .padding(vertical = 16.dp)
+                    .padding(vertical = 8.dp)
                     .fillMaxWidth()
+                    .height(150.dp)
                     .clip(RoundedCornerShape(12.dp))
             )
 

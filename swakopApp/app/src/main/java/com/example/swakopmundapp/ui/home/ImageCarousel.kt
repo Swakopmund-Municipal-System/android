@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 
 @Composable
-fun ImageCarousel(images: List<Int>) {
+fun ImageCarousel(images: List<Int>, modifier: Modifier) {
     var currentImageIndex by remember { mutableStateOf(0) } // State for current image index
 
     // Automatically change image every 3 seconds
@@ -37,7 +37,7 @@ fun ImageCarousel(images: List<Int>) {
             contentScale = ContentScale.Crop
         )
 
-        // Indicators (Dots)
+        
         Row(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
@@ -47,7 +47,7 @@ fun ImageCarousel(images: List<Int>) {
             repeat(images.size) { i ->
                 Box(
                     Modifier
-                        .size(8.dp) // Dot size
+                        .size(8.dp) 
                         .padding(horizontal = 3.dp)
                         .background(
                             color = if (i == currentImageIndex) Color.White else Color.Gray.copy(alpha = 0.5f),
@@ -58,4 +58,7 @@ fun ImageCarousel(images: List<Int>) {
         }
     }
 }
+
+
+
 

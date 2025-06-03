@@ -2,8 +2,10 @@ package com.example.swakopmundapp.ui.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -17,7 +19,6 @@ import androidx.compose.material.icons.filled.People
 import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Support
 import androidx.compose.material.icons.filled.WbSunny
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -27,7 +28,6 @@ import androidx.navigation.NavHostController
 import com.example.swakopmundapp.R
 import com.example.swakopmundapp.ui.navigation.Screen
 import com.example.swakopmundapp.ui.shared.BottomNavBar
-import com.example.swakopmundapp.ui.shared.ImageCarousel
 import com.example.swakopmundapp.ui.shared.MenuGridItem
 import com.example.swakopmundapp.ui.shared.TopBlueBar
 
@@ -101,13 +101,15 @@ fun HomeScreen(navController: NavHostController) {
 
     Scaffold(
         topBar = { TopBlueBar(title = "Home") },
+        contentWindowInsets = WindowInsets.systemBars, // 👈 fixes status bar overlap
         bottomBar = {
             BottomNavBar(
                 currentRoute = Screen.Home.route,
                 navController = navController
             )
         }
-    ) { paddingValues ->
+    )
+    { paddingValues ->
         Column(
             modifier = Modifier
                 .fillMaxSize()

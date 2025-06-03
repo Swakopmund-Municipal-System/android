@@ -15,3 +15,24 @@
 local.properties
 .DS_Store
 **/.DS_Store
+# Ignore specific PNG replacements
+app/src/main/res/drawable/background2.png
+app/src/main/res/drawable/slideshow_image_2.png
+app/src/main/res/drawable/slideshow_image_3.png
+app/src/main/res/drawable/slideshow_image_4.png
+app/src/main/res/drawable/beach_hotel.png
+app/src/main/res/drawable/giardino.png
+app/src/main/res/drawable/loewenhoff.png
+app/src/main/res/drawable/moringa.png
+app/src/main/res/drawable/trade_fair.png
+# Build directories
+**/build/
+
+
+# Gradle files
+.gradle/
+gradle-wrapper.jar
+
+# Local configuration files
+local.properties
+.idea/

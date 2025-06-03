@@ -14,15 +14,18 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -30,6 +33,7 @@ import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.swakopmundapp.R
+import com.example.swakopmundapp.core.dto.SignUpDto
 import com.example.swakopmundapp.repository.transaction.TransactionHandler
 import com.example.swakopmundapp.ui.components.AnnotatedClickableText
 import com.example.swakopmundapp.ui.components.ButtonComponent
@@ -42,10 +46,6 @@ import com.example.swakopmundapp.ui.components.ResidencyDropdownField
 import com.example.swakopmundapp.ui.components.UserTypes
 import com.example.swakopmundapp.ui.components.WhiteSheet
 import com.example.swakopmundapp.ui.navigation.Screen
-import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
-import com.example.swakopmundapp.core.dto.SignUpDto
 import com.example.swakopmundapp.viewModel.AuthenticationViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -65,9 +65,7 @@ fun SignUpScreen(
     var signupResult by remember { mutableStateOf<LiveData<TransactionHandler<out Any?>>?>(null) }
 
     signupResult?.observeAsState()?.value?.let { result ->
-
         when (result) {
-
             is TransactionHandler.Started -> {
                 isLoading = true
                 errorMessage = ""
@@ -75,14 +73,10 @@ fun SignUpScreen(
 
             is TransactionHandler.SuccessfullyCompleted -> {
                 isLoading = false
-
-                // TODO: SAVE USER INFO IN DB
                 val signupResponse = result.data as? com.example.swakopmundapp.core.dto.SignUpResponseDto
-
                 navController.navigate(Screen.Home.route) {
                     popUpTo(Screen.Login.route) { inclusive = true }
                 }
-
                 firstName = ""
                 lastName = ""
                 email = ""
@@ -109,6 +103,8 @@ fun SignUpScreen(
         }
     }
 
+    val scrollState = rememberScrollState()
+
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
             painter = painterResource(id = R.drawable.swakop_sc_bg),
@@ -118,7 +114,9 @@ fun SignUpScreen(
         )
 
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Spacer(modifier = Modifier.height(100.dp))
@@ -134,16 +132,13 @@ fun SignUpScreen(
             WhiteSheet(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(1f)
+                    .weight(1f, fill = false)
                     .alpha(0.85f),
                 cornerRadius = 24.dp
             ) {
-                val scrollState = rememberScrollState()
-
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .verticalScroll(scrollState)
                         .padding(horizontal = 16.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
@@ -178,7 +173,6 @@ fun SignUpScreen(
                         selectedStatus = residency,
                         onStatusSelected = {
                             residency = it
-
                             if (it == UserTypes.Tourist) {
                                 address = ""
                             }
@@ -215,7 +209,6 @@ fun SignUpScreen(
                                 residency != null && (residency != UserTypes.Resident || address.isNotBlank()),
                         onClick = {
                             if (!isLoading) {
-
                                 val signUpDto = when (residency) {
                                     UserTypes.Resident -> SignUpDto(
                                         firstName = firstName.trim(),

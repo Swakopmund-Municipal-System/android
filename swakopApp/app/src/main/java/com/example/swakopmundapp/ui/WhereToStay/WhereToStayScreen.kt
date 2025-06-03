@@ -1,4 +1,4 @@
-package com.example.swakopmundapp.ui.wheretostay
+package com.example.swakopmundapp.ui.WhereToStay
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -19,8 +19,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
@@ -133,46 +132,48 @@ fun WhereToStayScreen(navController: NavHostController, hotels: List<Hotel>, onB
             }
         }
     ) { paddingValues ->
-        Column(Modifier.padding(paddingValues).padding(16.dp)) {
-            OutlinedTextField(
-                value = searchQuery,
-                onValueChange = { searchQuery = it },
-                label = { Text("Search...") },
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Row(
-                Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text("Amenities ▼") // Placeholder for future functionality
-
-                SortDropdown(
-                    selected = selectedSort,
-                    options = sortOptions,
-                    onOptionSelected = { selectedSort = it }
+        LazyColumn(
+            contentPadding = paddingValues,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            item {
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    label = { Text("Search...") },
+                    modifier = Modifier.fillMaxWidth()
                 )
+
+                Spacer(modifier = Modifier.height(8.dp))
+
+                Row(
+                    Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("Amenities ▼") // Placeholder
+
+                    SortDropdown(
+                        selected = selectedSort,
+                        options = sortOptions,
+                        onOptionSelected = { selectedSort = it }
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Text("Currently Trending", style = MaterialTheme.typography.titleLarge)
+
+                Spacer(modifier = Modifier.height(12.dp))
             }
 
-            Spacer(modifier = Modifier.height(12.dp))
-
-            Text("Currently Trending", style = MaterialTheme.typography.titleLarge)
-
-            Spacer(modifier = Modifier.height(12.dp))
-
-            LazyColumn {
-                items(filteredHotels) { hotel ->
-                    HotelCard(hotel = hotel, navController = navController)
-                    Spacer(modifier = Modifier.height(8.dp))
-                }
+            items(filteredHotels) { hotel ->
+                HotelCard(hotel = hotel, navController = navController)
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }
 }
-
 
 @Composable
 fun HotelCard(
@@ -310,7 +311,7 @@ fun DatePickerCalendar(
             IconButton(onClick = {
                 currentMonth.value = currentMonth.value.minusMonths(1)
             }) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Previous Month")
+                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Previous Month")
             }
 
             Text(
@@ -322,7 +323,7 @@ fun DatePickerCalendar(
             IconButton(onClick = {
                 currentMonth.value = currentMonth.value.plusMonths(1)
             }) {
-                Icon(Icons.Default.ArrowForward, contentDescription = "Next Month")
+                Icon(Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Next Month")
             }
         }
 

@@ -33,9 +33,9 @@ import com.example.swakopmundapp.ui.startscreen.StartScreen
 import com.example.swakopmundapp.ui.support.SupportScreen
 import com.example.swakopmundapp.ui.tourism.TourismDetailScreen
 import com.example.swakopmundapp.ui.weather.WeatherScreen
-import com.example.swakopmundapp.ui.wheretostay.Hotel
+import com.example.swakopmundapp.ui.WhereToStay.Hotel
 import com.example.swakopmundapp.ui.wheretostay.HotelDetailsScreen
-import com.example.swakopmundapp.ui.wheretostay.WhereToStayScreen
+import com.example.swakopmundapp.ui.WhereToStay.WhereToStayScreen
 import com.example.swakopmundapp.ui.community.EmergencyContactsScreen
 import com.example.swakopmundapp.ui.community.EventsScreen
 import com.example.swakopmundapp.ui.community.EventDetailScreen

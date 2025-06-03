@@ -19,11 +19,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.swakopmundapp.ui.WhereToStay.Hotel
 import com.example.swakopmundapp.ui.wheretostay.components.CalendarPicker
 import java.time.LocalDate
 
 @Composable
-fun HotelDetailsScreen(hotel: Hotel,  navController: NavHostController) {
+fun HotelDetailsScreen(hotel: Hotel, navController: NavHostController) {
     var checkIn by remember { mutableStateOf<LocalDate?>(null) }
     var checkOut by remember { mutableStateOf<LocalDate?>(null) }
 

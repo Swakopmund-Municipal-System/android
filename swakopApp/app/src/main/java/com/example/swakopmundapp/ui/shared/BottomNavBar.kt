@@ -65,7 +65,7 @@ fun BottomNavBar(
 
         BottomNavItem(
             icon = Icons.Filled.Notifications,
-            label = "Notifications",
+            label = "Notices",
             isSelected = currentRoute == Screen.Notifications.route,
             onClick = {
                 if (currentRoute != Screen.Notifications.route) {

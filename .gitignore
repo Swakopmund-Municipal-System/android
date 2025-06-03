@@ -43,3 +43,4 @@ swakopApp/service/build/intermediates/incremental/packageDebugAssets/merger.xml
 swakopApp/service/build/kotlin/compileDebugKotlin/cacheable/last-build.bin
 swakopApp/service/build/kotlin/compileDebugKotlin/local-state/build-history.bin
 swakopApp/service/build/outputs/logs/manifest-merger-debug-report.txt
+.idea

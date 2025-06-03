@@ -35,7 +35,6 @@ import com.example.swakopmundapp.ui.components.AnnotatedClickableText
 import com.example.swakopmundapp.ui.components.ButtonComponent
 import com.example.swakopmundapp.ui.components.ClickablePart
 import com.example.swakopmundapp.ui.components.HeadingTextComponent
-import com.example.swakopmundapp.ui.components.MyTextFieldComponent
 import com.example.swakopmundapp.ui.components.NormalTextComponent
 import com.example.swakopmundapp.ui.components.PasswordTextFieldComponent
 import com.example.swakopmundapp.ui.components.ResidencyDropdownField
@@ -46,6 +45,8 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import com.example.swakopmundapp.core.dto.SignUpDto
+import com.example.swakopmundapp.ui.components.MyTextFieldComponent2
+import com.example.swakopmundapp.util.PREF_ROLE
 import com.example.swakopmundapp.viewModel.AuthenticationViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -76,8 +77,12 @@ fun SignUpScreen(
             is TransactionHandler.SuccessfullyCompleted -> {
                 isLoading = false
 
-                // TODO: SAVE USER INFO IN DB
-                val signupResponse = result.data as? com.example.swakopmundapp.core.dto.SignUpResponseDto
+                // saved user role in prefs
+                PREF_ROLE = when (residency) {
+                    UserTypes.Resident -> "resident"
+                    UserTypes.Tourist -> "tourist"
+                    else -> ""
+                }
 
                 navController.navigate(Screen.Home.route) {
                     popUpTo(Screen.Login.route) { inclusive = true }
@@ -150,19 +155,19 @@ fun SignUpScreen(
                     HeadingTextComponent(value = stringResource(id = R.string.signup))
                     NormalTextComponent(value = stringResource(id = R.string.create_account))
 
-                    MyTextFieldComponent(
+                    MyTextFieldComponent2(
                         labelValue = stringResource(id = R.string.first_name),
                         value = firstName,
                         onValueChange = { firstName = it }
                     )
 
-                    MyTextFieldComponent(
+                    MyTextFieldComponent2(
                         labelValue = stringResource(id = R.string.last_name),
                         value = lastName,
                         onValueChange = { lastName = it }
                     )
 
-                    MyTextFieldComponent(
+                    MyTextFieldComponent2(
                         labelValue = stringResource(id = R.string.email),
                         value = email,
                         onValueChange = { email = it }
@@ -188,7 +193,7 @@ fun SignUpScreen(
 
                     if (residency == UserTypes.Resident) {
                         Spacer(modifier = Modifier.height(8.dp))
-                        MyTextFieldComponent(
+                        MyTextFieldComponent2(
                             labelValue = "Home Address",
                             value = address,
                             onValueChange = { address = it }
@@ -210,26 +215,24 @@ fun SignUpScreen(
 
                     ButtonComponent(
                         value = if (isLoading) "Creating Account..." else stringResource(id = R.string.signup),
-                        enabled = !isLoading && firstName.isNotBlank() && lastName.isNotBlank() &&
-                                email.isNotBlank() && password.isNotBlank() &&
-                                residency != null && (residency != UserTypes.Resident || address.isNotBlank()),
+                        enabled = true,
                         onClick = {
                             if (!isLoading) {
 
                                 val signUpDto = when (residency) {
                                     UserTypes.Resident -> SignUpDto(
-                                        firstName = firstName.trim(),
-                                        lastName = lastName.trim(),
-                                        email = email.trim(),
-                                        password = password,
-                                        homeAddress = address.trim(),
+                                        email = email,              // ✅ 1st parameter
+                                        password = password,               // ✅ 2nd parameter
+                                        firstName = firstName,      // ✅ 3rd parameter
+                                        lastName = lastName,
+                                        homeAddress = address,
                                         userType = listOf("resident")
                                     )
                                     UserTypes.Tourist -> SignUpDto(
-                                        firstName = firstName.trim(),
-                                        lastName = lastName.trim(),
-                                        email = email.trim(),
-                                        password = password,
+                                        email = email,              // ✅ 1st parameter
+                                        password = password,               // ✅ 2nd parameter
+                                        firstName = firstName,      // ✅ 3rd parameter
+                                        lastName = lastName,
                                         homeAddress = null,
                                         userType = listOf("tourist")
                                     )

@@ -20,3 +20,15 @@ var PREF_TOKEN: String
             apply()
         }
     }
+
+var PREF_ROLE: String
+    get() {
+        return appSharedPreference.getString("ROLE", "") ?: ""
+    }
+    set(value) {
+        with(appSharedPreference.edit()) {
+            putString("ROLE", value)
+            apply()
+        }
+    }
+

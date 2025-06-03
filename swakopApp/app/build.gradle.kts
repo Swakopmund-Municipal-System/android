@@ -17,6 +17,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
+    alias(libs.plugins.ksp)
 }
 
 android {
@@ -94,6 +96,7 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":service"))
+    implementation(project(":database"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.gson)
@@ -129,6 +132,9 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation("com.mapbox.maps:android:11.12.2")
     implementation("com.mapbox.extension:maps-compose:11.12.2")
+    implementation(libs.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.room.ktx)
     implementation(libs.androidx.media3.exoplayer)
 
     testImplementation(libs.junit)

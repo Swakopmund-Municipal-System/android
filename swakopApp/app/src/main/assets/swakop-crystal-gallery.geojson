@@ -1,0 +1,16 @@
+{
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "The Kristall Galerie",
+        "description": "The Kristall Galerie located in Swakopmund, Namibia was founded in 1998 showcasing a variety of specimens, crystals and cut gemstones."
+      },
+      "geometry": {
+        "coordinates": [14.52605631813091, -22.6744416388838],
+        "type": "Point"
+      }
+    }
+  ],
+  "type": "FeatureCollection"
+}

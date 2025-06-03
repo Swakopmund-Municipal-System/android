@@ -1,0 +1,126 @@
+{
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Hohenzollern Building",
+        "description": "One of the finest colonial buildings in Swakopmund is the Hohenzollern Building, on the corner of Libertina Amathila Avenue (formerly Brücken Street) and Tobias Hainyeko Street."
+      },
+      "geometry": {
+        "coordinates": [14.525803366268441, -22.680266069346114],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Die Kaiserliches Bezirksgericht - State House",
+        "description": "The Kaiserliches Bezirksgericht, now known as State House, was originally built in colonial times (1901 and extended in 1905) to serve as the district magistrates’ court."
+      },
+      "geometry": {
+        "coordinates": [14.524476337432649, -22.676101164409324],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "The Old Prison",
+        "description": "The impressive 1909 Alte Gefängnis was designed by architect Heinrich Bause, The main building was used only for staff housing while the prisoners were relegated to less opulent quarters on one side."
+      },
+      "geometry": {
+        "coordinates": [14.52547030674817, -22.674844562358153],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Hansa Hotel",
+        "description": "Hansa Hotel Erected 1905, and now used as shops and office. A new wing was build in 1950 and is still in use today as one of Swakopmund upmarket hotels."
+      },
+      "geometry": {
+        "coordinates": [14.526218966268443, -22.677089765767168],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Bird Island",
+        "description": "Bird Island began as a wooden platform measuring four meters square, three meters above the sea. Winter finished this initial construction in March 1930. "
+      },
+      "geometry": {
+        "coordinates": [14.53571717791052, -22.878464507034774],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Woermanhaus",
+        "description": "From the shore, the delightful German-style Woermannhaus stands out above surrounding buildings. It is easily recognized as the building on the high ground with a decorated tower"
+      },
+      "geometry": {
+        "coordinates": [14.52426785093197, -22.679188166763538],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Swakopmund Hotel and Entertainment Centre",
+        "description": "The Swakopmund Hotel and Entertainment Centre is a timeless treasure, centrally located in Namibia’s iconic Swakopmund town."
+      },
+      "geometry": {
+        "coordinates": [14.52766163558504, -22.674092457716295],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Prinzessin Rupprecht Heim",
+        "description": "The single-storey Prinzessin Rupprecht Heim on the corner of Bismarck and Anton Lubowski Avenue was constructed in 1902, and was first used as a military hospital."
+      },
+      "geometry": {
+        "coordinates": [14.524286337469539, -22.682003476121526],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "The Altes Ampsgericht",
+        "description": "On the corner of Theo-Ben Gurirab Avenue and Tobias Hainyeko Street is the Altes Amtsgericht , built in 1906 as a school but then used as the magistrates office after the state had to complete the building"
+      },
+      "geometry": {
+        "coordinates": [14.525534679761066, -22.674864361509883],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "The Swakopmund Jetty",
+        "description": "Initially a 325 meter long, wooden jetty was built in 1902, which was replaced by an iron one in 1912. This was to be 640 metres long and equipped with two 5 ton and two 3 ton cranes, as well as a railway line."
+      },
+      "geometry": {
+        "coordinates": [14.519544437432652, -22.68042437383899],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "The Swakopmund Lighthouse",
+        "description": "In the gardens behind the museum is the wellknown Swakopmund landmark - the lighthouse . The first version, built in 1903, stood at a height of only 11 m. In 1910 a further 10 m was added to reach a total height of 28 meters."
+      },
+      "geometry": {
+        "coordinates": [14.52421545092527, -22.67591155938082],
+        "type": "Point"
+      }
+    }
+  ],
+  "type": "FeatureCollection"
+}

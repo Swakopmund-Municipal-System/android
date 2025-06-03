@@ -2,8 +2,8 @@
 //import androidx.datastore.core.use
 //import androidx.glance.appwidget.compose
 //import androidx.navigation.compose.navigation
-import java.util.Properties
 import java.nio.charset.StandardCharsets
+import java.util.Properties
 
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
@@ -114,6 +114,8 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.constraintlayout.compose.android)
     implementation(libs.androidx.runtime.livedata)
+    implementation("com.mapbox.maps:android:11.12.2")
+    implementation("com.mapbox.extension:maps-compose:11.12.2")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

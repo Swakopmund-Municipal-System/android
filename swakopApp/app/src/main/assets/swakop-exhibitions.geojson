@@ -1,0 +1,27 @@
+{
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Swakopmund Aquarium",
+        "description": "The National Marine Aquarium of Namibia is located in the coastal town of Swakopmund, wedged between the mighty Atlantic Ocean and the Namib Desert."
+      },
+      "geometry": {
+        "coordinates": [14.523022215834285,-22.684644627658592],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "The Kristall Galerie",
+        "description": "The Kristall Galerie located in Swakopmund, Namibia was founded in 1998 showcasing a variety of specimens, crystals and cut gemstones."
+      },
+      "geometry": {
+        "coordinates": [14.526061682293484, -22.67443173927779],
+        "type": "Point"
+      }
+    }
+  ],
+  "type": "FeatureCollection"
+}

@@ -1,0 +1,71 @@
+{
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "The Marine Memorial",
+        "description": "A monument dedicated to members of the First Marine Expedition Corps who died during the Herero War, 1904-1905 is located close to the State House and is known as the Marine Memorial or Marine Denkmal."
+      },
+      "geometry": {
+        "coordinates": [14.52485, -22.676371],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "German Schutztruppe Graves and Fort",
+        "description": "From the Bloedkoppie there is a 4x4 trail of about 30 kilometers joining up with the C28. On this route there are two old German war graves dating back to 1895. There is also the remains of a German fort nearby."
+      },
+      "geometry": {
+        "coordinates": [15.42453, -22.82868],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Trekkopje War Graves",
+        "description": "The Battle of Trekkopjes on 26 April 1915 was a German assault on the South African forces securing the Railway Line near Trekkopjes during the South West Africa Campaign of World War I."
+      },
+      "geometry": {
+        "coordinates": [15.102264, -22.288898],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Regimental Insignia in the Namib Desert",
+        "description": "During May and June of the year 1915 hundreds of South African troops were posted to do guard-duty on the rebuilt Otavi Railway between Swakopmund and Usakos."
+      },
+      "geometry": {
+        "coordinates": [14.910227, -22.486578],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "The War Memorial",
+        "description": "Opposite the State House (Kaiserliches Bezirksgericht) towards the sea you will find a war memorial, commemorating the soldiers that died in the two world wars."
+      },
+      "geometry": {
+        "coordinates": [14.523384, -22.676503],
+        "type": "Point"
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Martin Luther Steam Tractor",
+        "description": "In 1894 the German artist, Troost, tried to replace the tedious ox-wagon traffic on the Bay Road from Swakopmund into the interior by the implementation of a steam traction engine, but it did not succeed to operate under the harsh conditions of the Namib Desert, and the attempt was duly abandoned."
+      },
+      "geometry": {
+        "coordinates": [14.552826, -22.671918],
+        "type": "Point"
+      }
+    }
+  ],
+  "type": "FeatureCollection"
+}

@@ -1,0 +1,16 @@
+{
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "title": "Dune 7",
+        "description": "Dune 7 is the highest dune in Namibia. The dune has been measured at over 1,256 feet (383 meters) and is named Dune 7 because it is the seventh dune one encounters after crossing the river Tsauchab."
+      },
+      "geometry": {
+        "coordinates": [14.594343626953352, -22.967995491118245],
+        "type": "Point"
+      }
+    }
+  ],
+  "type": "FeatureCollection"
+}

@@ -32,6 +32,8 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+
+
     }
 
     buildTypes {
@@ -44,27 +46,38 @@ android {
             buildConfigField(
                 "String",
                 "SHARED_API_KEY",
-                "\"${localProperties.getProperty("SHARED_API_KEY", "YOUR_DEFAULT_KEY_IF_NOT_FOUND")}\""
+                "\"${localProperties.getProperty("SHARED_API_KEY", "")}\""
             )
             buildConfigField(
                 "String",
                 "SHARED_AUTH_TOKEN",
-                "\"${localProperties.getProperty("SHARED_AUTH_TOKEN", "YOUR_DEFAULT_TOKEN_IF_NOT_FOUND")}\""
+                "\"${localProperties.getProperty("SHARED_AUTH_TOKEN", "")}\""
+            )
+            buildConfigField(
+                "String",
+                "BACKEND_API_KEY",
+                "\"${localProperties.getProperty("BACKEND_API_KEY", "DEBUG_KEY_MISSING")}\""
             )
         }
         debug {
             buildConfigField(
                 "String",
                 "SHARED_API_KEY",
-                "\"${localProperties.getProperty("SHARED_API_KEY", "YOUR_DEFAULT_KEY_IF_NOT_FOUND_DEBUG")}\""
+                "\"${localProperties.getProperty("SHARED_API_KEY", "")}\""
             )
             buildConfigField(
                 "String",
                 "SHARED_AUTH_TOKEN",
-                "\"${localProperties.getProperty("SHARED_AUTH_TOKEN", "YOUR_DEFAULT_TOKEN_IF_NOT_FOUND_DEBUG")}\""
+                "\"${localProperties.getProperty("SHARED_AUTH_TOKEN", "")}\""
+            )
+            buildConfigField(
+                "String",
+                "BACKEND_API_KEY",
+                "\"${localProperties.getProperty("BACKEND_API_KEY", "DEBUG_KEY_MISSING")}\""
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -117,6 +130,7 @@ dependencies {
     implementation("com.mapbox.maps:android:11.12.2")
     implementation("com.mapbox.extension:maps-compose:11.12.2")
     implementation(libs.androidx.media3.exoplayer)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

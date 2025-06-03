@@ -39,7 +39,8 @@ import androidx.compose.ui.unit.dp
 fun MenuGridItem(
     icon: ImageVector,
     label: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    modifier: Modifier
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

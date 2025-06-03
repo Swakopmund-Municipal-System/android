@@ -189,6 +189,21 @@ fun MyTextFieldComponent(
 }
 
 @Composable
+fun MyTextFieldComponent2(
+    labelValue: String,
+    value: String = "",
+    onValueChange: (String) -> Unit = {}
+) {
+    OutlinedTextField(
+        label = { Text(text = labelValue) },
+        keyboardOptions = KeyboardOptions.Default,
+        value = value,  // ✅ Use the passed value
+        onValueChange = onValueChange,  // ✅ Use the passed callback
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
 fun PasswordTextFieldComponent(
     labelValue: String,
     value: String = "",

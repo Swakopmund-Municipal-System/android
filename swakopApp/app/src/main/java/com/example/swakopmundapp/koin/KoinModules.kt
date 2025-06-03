@@ -13,7 +13,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val repositoryModule = module {
-    single { AuthenticationRepository(get()) }
+    single { AuthenticationRepository(get(), get()) }
     single { UserRepository(get()) }
     single { TourismRepository(get()) }
 }
